@@ -1,11 +1,18 @@
 <template>
-  <main class="main-content">
+  <main>
       <hf-header :logo="logo"></hf-header>
-      <hf-menubar
-        :counter="filteredMovies.length"
-        :selectTab="selectTab"
-        :categories="categories"
-      ></hf-menubar>
+      <div class="main-content">
+        <hf-menubar
+          :counter="filteredMovies.length"
+          :selectTab="selectTab"
+          :categories="categories"
+        ></hf-menubar>
+          <hf-movie-list
+            :baseUrlCDN="pictureCdnUrl"
+            :navClosed="navClosed"
+            :filteredMovies="filteredMovies || []">
+          </hf-movie-list>
+      </div>
     </main>
 </template>
 
@@ -27,11 +34,94 @@ export default {
       logo: header,
       pictureCdnUrl: 'https://image.tmdb.org/t/p/w500',
       navClosed: true,
-      categories: [],
-      genres: [],
+      categories: [
+        {category: 'All', selected: true},
+        {category: 'Action', selected: false},
+        {category: 'Drama', selected: false},
+        {category: 'Thriller', selected: false},
+        {category: 'Adventure', selected: false},
+        {category: 'Comedy', selected: false}
+      ],
+      genres: [
+        {
+          id: 28,
+          name: 'Action'
+        },
+        {
+          id: 12,
+          name: 'Adventure'
+        },
+        {
+          id: 16,
+          name: 'Animation'
+        },
+        {
+          id: 35,
+          name: 'Comedy'
+        },
+        {
+          id: 80,
+          name: 'Crime'
+        },
+        {
+          id: 99,
+          name: 'Documentary'
+        },
+        {
+          id: 18,
+          name: 'Drama'
+        },
+        {
+          id: 10751,
+          name: 'Family'
+        },
+        {
+          id: 14,
+          name: 'Fantasy'
+        },
+        {
+          id: 36,
+          name: 'History'
+        },
+        {
+          id: 27,
+          name: 'Horror'
+        },
+        {
+          id: 10402,
+          name: 'Music'
+        },
+        {
+          id: 9648,
+          name: 'Mystery'
+        },
+        {
+          id: 10749,
+          name: 'Romance'
+        },
+        {
+          id: 878,
+          name: 'Science Fiction'
+        },
+        {
+          id: 10770,
+          name: 'TV Movie'
+        },
+        {
+          id: 53,
+          name: 'Thriller'
+        },
+        {
+          id: 10752,
+          name: 'War'
+        },
+        {
+          id: 37,
+          name: 'Western'
+        }
+      ],
       searchValue: '',
-      movies: [],
-      filteredMovies: [
+      movies: [
         {
           vote_count: 3658,
           id: 285,
@@ -39,7 +129,7 @@ export default {
           vote_average: 6.9,
           title: "Pirates of the Caribbean: At World's End",
           popularity: 20.793915,
-          poster_path: '/bXb00CkHqx7TPchTGG131sWV59y.jpg',
+          posterPath: '/bXb00CkHqx7TPchTGG131sWV59y.jpg',
           original_language: 'en',
           original_title: "Pirates of the Caribbean: At World's End",
           genre_ids: [12, 14, 28],
@@ -56,7 +146,7 @@ export default {
           vote_average: 6.5,
           title: "Miss Peregrine's Home for Peculiar Children",
           popularity: 20.415854,
-          poster_path: '/AvekzUdI8HZnImdQulmTTmAZXrC.jpg',
+          posterPath: '/AvekzUdI8HZnImdQulmTTmAZXrC.jpg',
           original_language: 'en',
           original_title: "Miss Peregrine's Home for Peculiar Children",
           genre_ids: [18, 14, 12],
@@ -66,21 +156,26 @@ export default {
             'A teenager finds himself transported to an island where he must help protect a group of orphans with special powers from creatures intent on destroying them.',
           release_date: '2016-09-28'
         }
-      ]
+      ],
+      filteredMovies: []
     };
+  },
+  created() {
+    this.filteredMovies = this.movies;
   },
   methods: {
     selectTab: function(category) {
-      this.categories = this.categories.map(
-        filter => (filter.selected = filter.category === category)
-      );
+      this.categories = this.categories.map(filter => ({
+        ...filter,
+        selected: filter.category === category
+      }));
       this.filterMovies();
     },
     filterMovies: function() {
       const selectedCategory = this.categories.filter(f => f.selected)[0].category;
-      this.filteredMovies = this.movies.filter(
-        this.filterByCategory(selectedCategory).filter(this.filterByTitle(this.searchValue))
-      );
+      this.filteredMovies = this.movies
+        .filter(this.filterByCategory(selectedCategory))
+        .filter(this.filterByTitle(this.searchValue));
     },
     filterByCategory: function(selectedCategory) {
       return movie =>

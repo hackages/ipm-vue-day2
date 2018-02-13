@@ -2,8 +2,8 @@
   <section :class="{'filter-is-visible':!navClosed}" class="gallery">
     <hf-movie
       class="movie"
-      :key="movie"
-      v-for="movie in filteredMovies"
+      :key="movie.id"
+      v-for="movie in filteredMoviesLite"
       :movie="movie">
     </hf-movie>
   </section>
@@ -17,6 +17,16 @@ export default {
   name: 'HfMovieList',
   components: {
     HfMovie
+  },
+  computed: {
+    filteredMoviesLite: function() {
+      return this.filteredMovies.map(({title, id, posterPath, overview}) => ({
+        id,
+        title,
+        posterFullPath: `${this.baseUrlCDN}${posterPath}`,
+        overview
+      }));
+    }
   }
 };
 </script>

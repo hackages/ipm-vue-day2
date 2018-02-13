@@ -5,7 +5,7 @@
       <ul class="filters-list">
         <li
           v-for="category in categories"
-          :key="category"
+          :key="category.category"
           @click="selectTab(category.category)">
           <a :class="{'selected': category.selected}">{{category.category}}</a>
         </li>

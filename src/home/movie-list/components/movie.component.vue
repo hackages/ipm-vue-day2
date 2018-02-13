@@ -22,6 +22,16 @@ export default {
   name: 'movie',
   components: {
     HfMovieHoverInfo
+  },
+  data() {
+    return {
+      isHovered: false
+    };
+  },
+  methods: {
+    toggleHoverForTheMovie: function() {
+      this.isHovered = !this.isHovered;
+    }
   }
 };
 </script>

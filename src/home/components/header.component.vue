@@ -7,9 +7,6 @@
 <script>
 export default {
   name: 'HfHeader',
-  props: ['logo'],
-  created() {
-    console.log(this.logo);
-  }
+  props: ['logo']
 };
 </script>

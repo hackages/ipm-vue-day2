@@ -17,6 +17,6 @@
 
 <script>
 export default {
-  props: ['movie']
+  props: ['movie', 'isContainerHovered']
 };
 </script>
