@@ -1,0 +1,22 @@
+<template>
+  <div :class="{'show-movie-body': isContainerHovered}" class="movie-body">
+    <h1>{{movie.title}}</h1>
+    <p>{{movie.overview}}</p>
+
+    <button class="btn btn-danger">
+      Remove from cart
+    </button>
+    <button class="btn add">
+      Add to cart
+    </button>
+    <button class="btn btn-link">
+      See the details
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['movie']
+};
+</script>
