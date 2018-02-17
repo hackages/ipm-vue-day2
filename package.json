@@ -5,13 +5,14 @@
   "author": "Victor <victor@hackages.io>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
+    "start": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "bootstrap": "4.0.0",
+    "lodash": "^4.17.5",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-strap": "^1.1.40"

@@ -60,3 +60,4 @@ sftp-config*
 *.sublime-*
 .ida
 build/
+dist/
