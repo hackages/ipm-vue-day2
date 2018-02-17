@@ -18,8 +18,8 @@
 import HfMovieHoverInfo from './movie-hover-info.component';
 
 export default {
-  props: ['movie'],
   name: 'movie',
+  props: {movie: {type: Object, required: true}},
   components: {
     HfMovieHoverInfo
   },

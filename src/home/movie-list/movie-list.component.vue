@@ -1,5 +1,5 @@
 <template>
-  <section :class="{'filter-is-visible':!navClosed}" class="gallery">
+  <section :class="{'filter-is-visible':!toggleSideBar}" class="gallery">
     <hf-movie
       class="movie"
       :key="movie.id"
@@ -8,15 +8,28 @@
     </hf-movie>
   </section>
 </template>
-
 <script>
 import HfMovie from './components/movie.component';
 
 export default {
-  props: ['filteredMovies', 'navClosed', 'baseUrlCDN'],
+  props: {
+    filteredMovies: {
+      type: Array,
+      required: true
+    },
+    toggleSideBar: {
+      type: Boolean,
+      required: true
+    }
+  },
   name: 'HfMovieList',
   components: {
     HfMovie
+  },
+  data() {
+    return {
+      baseUrlCDN: 'https://image.tmdb.org/t/p/w500'
+    };
   },
   computed: {
     filteredMoviesLite: function() {

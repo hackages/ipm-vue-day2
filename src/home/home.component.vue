@@ -1,6 +1,6 @@
 <template>
   <main>
-      <hf-header :logo="logo"></hf-header>
+      <hf-header></hf-header>
       <div class="main-content">
         <hf-menubar
           :counter="filteredMovies.length"
@@ -8,10 +8,15 @@
           :categories="categories"
         ></hf-menubar>
           <hf-movie-list
-            :baseUrlCDN="pictureCdnUrl"
-            :navClosed="navClosed"
+            :toggleSideBar="toggleSideBar"
             :filteredMovies="filteredMovies || []">
           </hf-movie-list>
+          <hf-sidebar
+            :onClick="onClickSideBar"
+            :onSearch="onSearchSideBar"
+            :searchValue="searchValue"
+            :toggle="toggleSideBar">
+          </hf-sidebar>
       </div>
     </main>
 </template>
@@ -20,20 +25,19 @@
 import HfHeader from './components/header.component';
 import HfMenubar from './components/menubar.component';
 import HfMovieList from './movie-list/movie-list.component';
-import header from '@/assets/images/hackflix_logo.svg';
+import HfSidebar from './components/sidebar.component';
 
 export default {
   name: 'home',
   components: {
     HfHeader,
     HfMenubar,
-    HfMovieList
+    HfMovieList,
+    HfSidebar
   },
   data() {
     return {
-      logo: header,
-      pictureCdnUrl: 'https://image.tmdb.org/t/p/w500',
-      navClosed: true,
+      toggleSideBar: true,
       categories: [
         {category: 'All', selected: true},
         {category: 'Action', selected: false},
@@ -169,6 +173,7 @@ export default {
         ...filter,
         selected: filter.category === category
       }));
+      this.searchValue = '';
       this.filterMovies();
     },
     filterMovies: function() {
@@ -190,6 +195,13 @@ export default {
     },
     getGenreId: function(name) {
       return this.genres.filter(genre => genre.name === name)[0].id;
+    },
+    onClickSideBar: function(toggle) {
+      this.toggleSideBar = toggle;
+    },
+    onSearchSideBar: function(searchValue) {
+      this.searchValue = searchValue;
+      this.filterMovies();
     }
   }
 };

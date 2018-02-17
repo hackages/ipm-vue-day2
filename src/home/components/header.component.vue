@@ -5,8 +5,13 @@
 </template>
 
 <script>
+import header from '../../assets/images/hackflix_logo.svg';
 export default {
   name: 'HfHeader',
-  props: ['logo']
+  data() {
+    return {
+      logo: header
+    };
+  }
 };
 </script>

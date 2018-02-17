@@ -25,7 +25,20 @@
 
 <script>
 export default {
-  props: ['selectTab', 'counter', 'categories'],
-  name: 'HfMenubar'
+  name: 'HfMenubar',
+  props: {
+    selectTab: {
+      type: Function,
+      required: true
+    },
+    counter: {
+      type: Number,
+      required: true
+    },
+    categories: {
+      type: Array,
+      required: true
+    }
+  }
 };
 </script>

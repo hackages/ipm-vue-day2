@@ -1,5 +1,6 @@
 <template>
-  <div :class="{'show-movie-body': isContainerHovered}" class="movie-body">
+  <div :class="{'show-movie-body': isContainerHovered}"
+    class="movie-body">
     <h1>{{movie.title}}</h1>
     <p>{{movie.overview}}</p>
 
@@ -17,6 +18,15 @@
 
 <script>
 export default {
-  props: ['movie', 'isContainerHovered']
+  props: {
+    movie: {
+      type: Object,
+      required: true
+    },
+    isContainerHovered: {
+      type: Boolean,
+      required: true
+    }
+  }
 };
 </script>
