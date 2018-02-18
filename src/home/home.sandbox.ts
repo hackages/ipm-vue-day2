@@ -5,10 +5,14 @@ import {camelCaseMapper} from '@/shared/util';
 import {Movie, Category, Genre} from '@/home/home.type';
 
 const homeService =
-  process.env.NODE_ENV === 'production' ? new HomeApiService() : new HomeApiMocksService();
+  process.env.NODE_ENV === 'production'
+    ? new HomeApiService()
+    : new HomeApiMocksService();
 
 export const getOrderedByTitleMovies = (count: number): Movie[] => {
-  return orderBy(camelCaseMapper(homeService.getMovies()).slice(0, count), ['title']);
+  return orderBy(camelCaseMapper(homeService.getMovies()).slice(0, count), [
+    'title',
+  ]);
 };
 
 export const getOrderedCategories = (): Category[] => {

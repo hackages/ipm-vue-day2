@@ -16,20 +16,20 @@ export default {
   props: {
     filteredMovies: {
       type: Array,
-      required: true
+      required: true,
     },
     toggleSideBar: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   name: 'HfMovieList',
   components: {
-    HfMovie
+    HfMovie,
   },
   data() {
     return {
-      baseUrlCDN: 'https://image.tmdb.org/t/p/w500'
+      baseUrlCDN: 'https://image.tmdb.org/t/p/w500',
     };
   },
   computed: {
@@ -38,9 +38,9 @@ export default {
         id,
         title,
         posterFullPath: `${this.baseUrlCDN}${posterPath}`,
-        overview
+        overview,
       }));
-    }
-  }
+    },
+  },
 };
 </script>

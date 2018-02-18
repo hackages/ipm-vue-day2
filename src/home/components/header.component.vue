@@ -10,8 +10,8 @@ export default {
   name: 'HfHeader',
   data() {
     return {
-      logo: header
+      logo: header,
     };
-  }
+  },
 };
 </script>

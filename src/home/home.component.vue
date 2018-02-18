@@ -28,7 +28,7 @@ import HfMovieList from './movie-list/movie-list.component.vue';
 import HfSidebar from './components/sidebar.component.vue';
 
 import {getOrderedByTitleMovies, getOrderedCategories, getOrderedGenres} from './home.sandbox';
-import {HomeData, Movie, Genre} from '@/home/home.type';
+import {HomeData, Movie} from '@/home/home.type';
 
 export default {
   name: 'home',
@@ -36,7 +36,7 @@ export default {
     HfHeader,
     HfMenubar,
     HfMovieList,
-    HfSidebar
+    HfSidebar,
   },
   data(): HomeData {
     return {
@@ -45,7 +45,7 @@ export default {
       genres: getOrderedGenres(),
       searchValue: '',
       movies: getOrderedByTitleMovies(50),
-      filteredMovies: []
+      filteredMovies: [],
     };
   },
   created() {
@@ -55,7 +55,7 @@ export default {
     selectTab(category: string) {
       this.categories = this.categories.map(filter => ({
         ...filter,
-        selected: filter.category === category
+        selected: filter.category === category,
       }));
       this.filterMovies();
     },
@@ -89,7 +89,7 @@ export default {
     onSearchSideBar(searchValue: string): void {
       this.searchValue = searchValue;
       this.filterMovies();
-    }
-  }
+    },
+  },
 };
 </script>

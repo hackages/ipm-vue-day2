@@ -6,5 +6,5 @@ Vue.config.productionTip = process.env.NODE_ENV === 'production';
 
 new Vue({
   render: h => h(App),
-  router
+  router,
 }).$mount('#app');

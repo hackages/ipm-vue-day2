@@ -29,16 +29,16 @@ export default {
   props: {
     selectTab: {
       type: Function,
-      required: true
+      required: true,
     },
     counter: {
       type: Number,
-      required: true
+      required: true,
     },
     categories: {
       type: Array,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
