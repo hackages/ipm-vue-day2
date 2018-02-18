@@ -29,7 +29,7 @@ export default {
     };
   },
   methods: {
-    toggleHoverForTheMovie: function() {
+    toggleHoverForTheMovie() {
       this.isHovered = !this.isHovered;
     }
   }

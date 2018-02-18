@@ -8,8 +8,9 @@
     </hf-movie>
   </section>
 </template>
-<script>
-import HfMovie from './components/movie.component';
+<script lang="ts">
+import HfMovie from './components/movie.component.vue';
+import {MovieLite} from '@/home/home.type';
 
 export default {
   props: {
@@ -32,7 +33,7 @@ export default {
     };
   },
   computed: {
-    filteredMoviesLite: function() {
+    filteredMoviesLite(): MovieLite[] {
       return this.filteredMovies.map(({title, id, posterPath, overview}) => ({
         id,
         title,
