@@ -23,23 +23,20 @@ export default {
   props: {
     onSearch: {
       type: Function,
-      required: true
+      required: true,
     },
     searchValue: {
       type: String,
-      required: true
+      required: true,
     },
     onClick: {
       type: Function,
-      required: true
+      required: true,
     },
     toggle: {
       type: Boolean,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
-
-
-

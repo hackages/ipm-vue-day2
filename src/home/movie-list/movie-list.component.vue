@@ -8,38 +8,39 @@
     </hf-movie>
   </section>
 </template>
-<script>
-import HfMovie from './components/movie.component';
+<script lang="ts">
+import HfMovie from './components/movie.component.vue';
+import {MovieLite} from '@/home/home.type';
 
 export default {
   props: {
     filteredMovies: {
       type: Array,
-      required: true
+      required: true,
     },
     toggleSideBar: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   name: 'HfMovieList',
   components: {
-    HfMovie
+    HfMovie,
   },
   data() {
     return {
-      baseUrlCDN: 'https://image.tmdb.org/t/p/w500'
+      baseUrlCDN: 'https://image.tmdb.org/t/p/w500',
     };
   },
   computed: {
-    filteredMoviesLite: function() {
+    filteredMoviesLite(): MovieLite[] {
       return this.filteredMovies.map(({title, id, posterPath, overview}) => ({
         id,
         title,
         posterFullPath: `${this.baseUrlCDN}${posterPath}`,
-        overview
+        overview,
       }));
-    }
-  }
+    },
+  },
 };
 </script>

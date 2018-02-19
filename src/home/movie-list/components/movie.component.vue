@@ -21,17 +21,17 @@ export default {
   name: 'movie',
   props: {movie: {type: Object, required: true}},
   components: {
-    HfMovieHoverInfo
+    HfMovieHoverInfo,
   },
   data() {
     return {
-      isHovered: false
+      isHovered: false,
     };
   },
   methods: {
-    toggleHoverForTheMovie: function() {
+    toggleHoverForTheMovie() {
       this.isHovered = !this.isHovered;
-    }
-  }
+    },
+  },
 };
 </script>

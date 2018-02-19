@@ -21,12 +21,12 @@ export default {
   props: {
     movie: {
       type: Object,
-      required: true
+      required: true,
     },
     isContainerHovered: {
       type: Boolean,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
