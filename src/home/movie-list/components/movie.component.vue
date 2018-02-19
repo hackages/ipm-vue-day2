@@ -1,6 +1,6 @@
 <template>
-  <div
-    :to="['/details/'+movie.id]"
+  <router-link
+    :to="{name:'details' , params: {id: movie.id}}"
     @mouseenter="toggleHoverForTheMovie()"
     @mouseleave="toggleHoverForTheMovie()">
     <img
@@ -11,7 +11,7 @@
       :movie="movie"
       :isContainerHovered="isHovered">
     </hf-movie-hover-info>
-  </div>
+  </router-link>
 </template>
 
 <script>

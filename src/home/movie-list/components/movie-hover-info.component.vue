@@ -10,9 +10,7 @@
     <button class="btn add">
       Add to cart
     </button>
-    <button class="btn btn-link">
-      See the details
-    </button>
+    <router-link class="btn btn-link" :to="{name:'details' , params: {id:movie.id}}" tag="button">See the details</router-link>
   </div>
 </template>
 

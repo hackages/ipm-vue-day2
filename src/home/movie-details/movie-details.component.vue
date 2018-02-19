@@ -6,7 +6,7 @@
         <img
           alt="Movie Cover"
           class="card-imt-top"
-          [src]="getCover(movie.backdrop_path)"
+          :src="getCover"
         />
       </div>
       <div class="card-block-detail">
@@ -14,10 +14,10 @@
           {{movie.title}}
         </h1>
         <p class="rating">
-          <span>{{movie.vote_average}}</span> / 10
+          <span>{{movie.voteAverage}}</span> / 10
         </p>
         <p class="date">
-          {{movie.release_date}}
+          {{movie.releaseDate}}
         </p>
         <p>
           {{movie.overview}}
@@ -30,44 +30,34 @@
       </div>
       <div class="card-block-footer">
         <div class="comments-block">
-          <hf-comment-form ></hf-comment-form>
-          <div class="movie-comments">
-            <hf-comment-list ></hf-comment-list>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {getMovieById} from '../home.sandbox';
+
 export default {
   name: 'movieDetails',
-  component: {
-    HfCommentForm,
-    HfCommentList
-  },
+  component: {},
   data() {
     return {
-      movie: {
-        vote_count: 3658,
-        id: 285,
-        video: false,
-        vote_average: 6.9,
-        title: "Pirates of the Caribbean: At World's End",
-        popularity: 20.793915,
-        posterPath: '/bXb00CkHqx7TPchTGG131sWV59y.jpg',
-        original_language: 'en',
-        original_title: "Pirates of the Caribbean: At World's End",
-        genre_ids: [12, 14, 28],
-        backdrop_path: '/8ZgpAftUiYTU76IhUADITa3Ur9n.jpg',
-        adult: false,
-        overview:
-          'Captain Barbossa, long believed to be dead, has come back to life and is headed to the edge of the Earth with Will Turner and Elizabeth Swann. But nothing is quite as it seems.',
-        release_date: '2007-05-19'
-      },
-      comments: []
+      movie: getMovieById(+this.$route.params.id),
+      comments: [],
+      imageUrl: 'https://image.tmdb.org/t/p//w1280',
     };
-  }
+  },
+  computed: {
+    getCover() {
+      return `${this.imageUrl}${this.movie.backdropPath}`;
+    },
+  },
+  methods: {
+    back() {
+      this.$router.go(-1);
+    },
+  },
 };
 </script>

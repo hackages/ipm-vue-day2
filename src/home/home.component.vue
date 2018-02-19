@@ -1,7 +1,5 @@
 <template>
-  <main>
-      <hf-header></hf-header>
-      <div class="main-content">
+  <main class="main-content">
         <hf-menubar
           :counter="filteredMovies.length"
           :selectTab="selectTab"
@@ -17,12 +15,10 @@
             :searchValue="searchValue"
             :toggle="toggleSideBar">
           </hf-sidebar>
-      </div>
     </main>
 </template>
 
 <script lang="ts">
-import HfHeader from './components/header.component.vue';
 import HfMenubar from './components/menubar.component.vue';
 import HfMovieList from './movie-list/movie-list.component.vue';
 import HfSidebar from './components/sidebar.component.vue';
@@ -33,7 +29,6 @@ import {HomeData, Movie} from '@/home/home.type';
 export default {
   name: 'home',
   components: {
-    HfHeader,
     HfMenubar,
     HfMovieList,
     HfSidebar,

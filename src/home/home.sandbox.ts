@@ -10,11 +10,14 @@ const homeService =
     : new HomeApiMocksService();
 
 export const getOrderedByTitleMovies = (count: number): Movie[] => {
-  return orderBy(camelCaseMapper(homeService.getMovies()).slice(0, count), [
+  return orderBy(camelCaseMapper(homeService.getMovies().slice(0, count)), [
     'title',
   ]);
 };
 
+export const getMovieById = (id: number): Movie => {
+  return getOrderedByTitleMovies(50).filter(movie => id === movie.id)[0];
+};
 export const getOrderedCategories = (): Category[] => {
   const [all, ...rest] = camelCaseMapper(homeService.getCategories()).reduce(
     (acc, it) => (it.category === 'ALL' ? [it, ...acc] : [...acc, it]),
