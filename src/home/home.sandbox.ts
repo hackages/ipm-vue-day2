@@ -16,7 +16,9 @@ export const getOrderedByTitleMovies = (count: number): Movie[] => {
 };
 
 export const getMovieById = (id: number): Movie => {
-  return getOrderedByTitleMovies(50).filter(movie => id === movie.id)[0];
+  return camelCaseMapper(
+    homeService.getMovies().filter(movie => id === movie.id)
+  )[0];
 };
 export const getOrderedCategories = (): Category[] => {
   const [all, ...rest] = camelCaseMapper(homeService.getCategories()).reduce(
