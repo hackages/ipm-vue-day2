@@ -17,4 +17,12 @@ export class ApiService implements IApiService {
   getCommentsByMovieId(id: number): Comment[] {
     return;
   }
+
+  addCommentByMovieId(comment: Comment): Comment {
+    throw new Error('Method not implemented.');
+  }
+
+  deleteCommentById(id: number): string {
+    throw new Error('Method not implemented.');
+  }
 }

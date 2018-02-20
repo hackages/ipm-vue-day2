@@ -33,3 +33,11 @@ export const getOrderedGenres = (): Genre[] => {
 export const getCommentsById = (id: number): Comment[] => {
   return apiService.getCommentsByMovieId(id);
 };
+
+export const addCommentByMovieId = (comment: Comment): Comment => {
+  return apiService.addCommentByMovieId(comment);
+};
+
+export const deleteCommentById = (id: number): string => {
+  return apiService.deleteCommentById(id);
+};

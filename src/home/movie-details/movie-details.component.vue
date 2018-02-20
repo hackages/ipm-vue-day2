@@ -30,7 +30,7 @@
       </div>
       <div class="card-block-footer">
         <div class="comments-block">
-        <!-- <hf-comment-form ></hf-comment-form> -->
+        <hf-comment-form :onSubmit="onSubmitComment"></hf-comment-form>
           <div class="movie-comments">
             <hf-comment-list :comments="comments" :onDeteleComment="onDeleteComment"></hf-comment-list>
           </div>
@@ -41,15 +41,21 @@
 </template>
 
 <script>
-/* import HfCommentForm from './components/comment-form.component.vue'; */
+import HfCommentForm from './components/comment-form.component.vue';
 import HfCommentList from './components/comment-list.component.vue';
 
-import {getMovieById, getCommentsById} from '../home.sandbox';
+import {
+  getMovieById,
+  getCommentsById,
+  deleteCommentById,
+  addCommentByMovieId,
+} from '../home.sandbox';
 
 export default {
   name: 'HfMovieDetails',
   components: {
     HfCommentList,
+    HfCommentForm,
   },
   data() {
     return {
@@ -67,8 +73,13 @@ export default {
     back() {
       this.$router.go(-1);
     },
-    onDeleteComment(comment) {
-      console.log(comment);
+    onDeleteComment({id}) {
+      deleteCommentById(+comment.id);
+      this.comments = this.comments.filter(comment => comment.id !== id);
+    },
+    onSubmitComment(comment) {
+      this.comments = [...this.comments, comment];
+      addCommentByMovieId(comment);
     },
   },
 };

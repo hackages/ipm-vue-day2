@@ -33,7 +33,7 @@ export interface Genre {
 }
 
 export interface Comment {
-  id: number;
+  id?: number;
   movieId: number;
   author: string;
   content: string;

@@ -20,4 +20,12 @@ export class ApiMocksService implements IApiService {
       (comment: Comment) => id === comment.movieId
     );
   }
+
+  addCommentByMovieId(comment: Comment): Comment {
+    return comment;
+  }
+
+  deleteCommentById(id: number): string {
+    return `Comment ${id} deleted`;
+  }
 }

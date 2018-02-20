@@ -5,4 +5,6 @@ export abstract class IApiService {
   abstract getCategories(): Category[];
   abstract getGenres(): Genre[];
   abstract getCommentsByMovieId(id: number): Comment[];
+  abstract addCommentByMovieId(comment: Comment): Comment;
+  abstract deleteCommentById(id: number): string;
 }
