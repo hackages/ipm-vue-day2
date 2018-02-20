@@ -9,7 +9,7 @@ export const getCamelFromArrayOrObject = data => {
 export const camelCaseMapper = data => {
   const camelCaseObject = {};
   forEach(data, (value, key) => {
-    if (isPlainObject(value) || Array.isArray(value)) {
+    if (isPlainObject(value)) {
       value = camelCaseMapper(value);
     }
     camelCaseObject[camelCase(key)] = value;
