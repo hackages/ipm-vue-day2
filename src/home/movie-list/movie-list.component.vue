@@ -10,7 +10,7 @@
 </template>
 <script lang="ts">
 import HfMovie from './components/movie.component.vue';
-import {MovieLite} from '@/home/home.type';
+import {MovieLite} from '@/core/api.type';
 
 export default {
   props: {

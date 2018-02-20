@@ -1,6 +1,13 @@
 import {camelCase, isPlainObject, forEach} from 'lodash';
+
+export const getCamelFromArrayOrObject = data => {
+  return Array.isArray(data)
+    ? data.map(d => camelCaseMapper(d))
+    : camelCaseMapper(data);
+};
+
 export const camelCaseMapper = data => {
-  const camelCaseObject = [];
+  const camelCaseObject = {};
   forEach(data, (value, key) => {
     if (isPlainObject(value) || Array.isArray(value)) {
       value = camelCaseMapper(value);

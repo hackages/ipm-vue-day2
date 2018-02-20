@@ -2,9 +2,9 @@
   <div>
     <hf-comment
       v-for="comment in comments"
-      :key="comment"
+      :key="comment.id"
       :comment="comment"
-      :onDelete="onDelete">
+      :onDelete="onDeteleComment">
     </hf-comment>
   </div>
 </template>
@@ -12,19 +12,24 @@
 <script>
 import HfComment from './comment.component';
 export default {
-  name: 'HfComment',
+  name: 'HfCommentList',
   components: {
-    HfComment
+    HfComment,
   },
   props: {
     comments: {
       type: Array,
-      required: true
+      required: true,
     },
-    onDetele: {
+    onDeteleComment: {
       type: Function,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
+  methods: {
+    onDelete(comment) {
+      this.onDeteleComment(comment);
+    },
+  },
 };
 </script>

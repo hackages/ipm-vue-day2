@@ -24,7 +24,8 @@ import HfMovieList from './movie-list/movie-list.component.vue';
 import HfSidebar from './components/sidebar.component.vue';
 
 import {getOrderedByTitleMovies, getOrderedCategories, getOrderedGenres} from './home.sandbox';
-import {HomeData, Movie} from '@/home/home.type';
+import {Movie} from '@/core/api.type';
+import {HomeData} from '@/home/home.type';
 
 export default {
   name: 'home',

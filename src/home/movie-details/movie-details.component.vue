@@ -30,22 +30,31 @@
       </div>
       <div class="card-block-footer">
         <div class="comments-block">
+        <!-- <hf-comment-form ></hf-comment-form> -->
+          <div class="movie-comments">
+            <hf-comment-list :comments="comments" :onDeteleComment="onDeleteComment"></hf-comment-list>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import {getMovieById} from '../home.sandbox';
+<script>
+/* import HfCommentForm from './components/comment-form.component.vue'; */
+import HfCommentList from './components/comment-list.component.vue';
+
+import {getMovieById, getCommentsById} from '../home.sandbox';
 
 export default {
-  name: 'movieDetails',
-  component: {},
+  name: 'HfMovieDetails',
+  components: {
+    HfCommentList,
+  },
   data() {
     return {
       movie: getMovieById(+this.$route.params.id),
-      comments: [],
+      comments: getCommentsById(+this.$route.params.id),
       imageUrl: 'https://image.tmdb.org/t/p//w1280',
     };
   },
@@ -57,6 +66,9 @@ export default {
   methods: {
     back() {
       this.$router.go(-1);
+    },
+    onDeleteComment(comment) {
+      console.log(comment);
     },
   },
 };

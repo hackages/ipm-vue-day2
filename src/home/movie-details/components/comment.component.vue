@@ -16,12 +16,12 @@ export default {
   props: {
     comment: {
       type: Object,
-      required: true
+      required: true,
     },
     onDelete: {
       type: Function,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>

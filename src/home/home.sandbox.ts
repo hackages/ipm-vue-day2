@@ -1,33 +1,35 @@
 import {orderBy} from 'lodash';
-import {HomeApiMocksService} from '@/home/home-api-mocks.service';
-import {HomeApiService} from '@/home/home-api.service';
-import {camelCaseMapper} from '@/shared/util';
-import {Movie, Category, Genre} from '@/home/home.type';
+import {ApiMocksService} from '@/core/api-mocks.service';
+import {ApiService} from '@/core/api.service';
+import {Movie, Category, Genre, Comment} from '@/core/api.type';
 
-const homeService =
+const apiService =
   process.env.NODE_ENV === 'production'
-    ? new HomeApiService()
-    : new HomeApiMocksService();
+    ? new ApiService()
+    : new ApiMocksService();
 
 export const getOrderedByTitleMovies = (count: number): Movie[] => {
-  return orderBy(camelCaseMapper(homeService.getMovies().slice(0, count)), [
-    'title',
-  ]);
+  return orderBy(apiService.getMovies().slice(0, count), ['title']);
 };
 
 export const getMovieById = (id: number): Movie => {
-  return camelCaseMapper(
-    homeService.getMovies().filter(movie => id === movie.id)
-  )[0];
+  return apiService.getMovies().filter(movie => id === movie.id)[0];
 };
+
 export const getOrderedCategories = (): Category[] => {
-  const [all, ...rest] = camelCaseMapper(homeService.getCategories()).reduce(
-    (acc, it) => (it.category === 'ALL' ? [it, ...acc] : [...acc, it]),
-    []
-  );
+  const [all, ...rest] = apiService
+    .getCategories()
+    .reduce(
+      (acc, it) => (it.category === 'ALL' ? [it, ...acc] : [...acc, it]),
+      []
+    );
   return [all, ...orderBy(rest, ['category'])];
 };
 
 export const getOrderedGenres = (): Genre[] => {
-  return orderBy(camelCaseMapper(homeService.getGenres()), ['id']);
+  return orderBy(apiService.getGenres(), ['id']);
+};
+
+export const getCommentsById = (id: number): Comment[] => {
+  return apiService.getCommentsByMovieId(id);
 };
