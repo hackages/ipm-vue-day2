@@ -23,12 +23,17 @@ import HfMenubar from './components/menubar.component.vue';
 import HfMovieList from './movie-list/movie-list.component.vue';
 import HfSidebar from './components/sidebar.component.vue';
 
-import {getOrderedByTitleMovies, getOrderedCategories, getOrderedGenres} from './home.sandbox';
+import {
+  getOrderedByTitleMovies,
+  getOrderedCategories,
+  getOrderedGenres,
+} from './home.sandbox';
 import {Movie} from '@/core/api.type';
 import {HomeData} from '@/home/home.type';
+import auth from '../authentication/authentication.service';
 
 export default {
-  name: 'home',
+  name: 'HfHome',
   components: {
     HfMenubar,
     HfMovieList,
@@ -56,7 +61,8 @@ export default {
       this.filterMovies();
     },
     filterMovies() {
-      const selectedCategory = this.categories.filter(f => f.selected)[0].category;
+      const selectedCategory = this.categories.filter(f => f.selected)[0]
+        .category;
       this.filteredMovies = this.movies
         .filter(this.filterByCategory(selectedCategory))
         .filter(this.filterByTitle(this.searchValue));
@@ -67,10 +73,14 @@ export default {
         this.movieContainsGenre(movie, this.getGenreId(selectedCategory));
     },
     filterByTitle(title: string): (movie: Movie) => boolean {
-      return movie => !title || movie.title.toLowerCase().includes(title.toLowerCase());
+      return movie =>
+        !title || movie.title.toLowerCase().includes(title.toLowerCase());
     },
     movieContainsGenre(movie: Movie, genreId: number): boolean {
-      return movie.genreIds.reduce((contains, next) => contains || next === genreId, false);
+      return movie.genreIds.reduce(
+        (contains, next) => contains || next === genreId,
+        false
+      );
     },
     getGenreId(name: string): number {
       return this.genres.filter(genre => genre.name === name)[0].id;
@@ -78,7 +88,6 @@ export default {
     onClickSideBar(toggle: boolean): void {
       this.toggleSideBar = toggle;
       if (toggle) {
-        this.searchValue = '';
         this.filterMovies();
       }
     },

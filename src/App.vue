@@ -7,10 +7,14 @@
 
 <script>
 import HfHeader from './home/components/header.component.vue';
+import auth from './authentication/authentication.service';
 export default {
   name: 'App',
   components: {
     HfHeader,
+  },
+  created() {
+    auth.checkAuth();
   },
 };
 </script>
