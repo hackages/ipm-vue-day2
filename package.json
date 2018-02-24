@@ -42,6 +42,7 @@
   "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
   "lint-staged": {
     "*.ts": ["prettier --write", "npm run lint", "git add"],
-    "*.vue":["prettier --write", "npm run lint", "git add"]
+    "*.vue": ["prettier --write", "npm run lint", "git add"],
+    "*.json": ["prettier --write", "git add"]
   }
 }
