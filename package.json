@@ -32,28 +32,16 @@
     "vue-template-compiler": "^2.5.13"
   },
   "babel": {
-    "presets": [
-      "@vue/app"
-    ]
+    "presets": ["@vue/app"]
   },
   "postcss": {
     "plugins": {
       "autoprefixer": {}
     }
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
   "lint-staged": {
-    "*.ts": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.vue": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.ts": ["prettier --write", "npm run lint", "git add"],
+    "*.vue":["prettier --write", "npm run lint", "git add"]
   }
 }
