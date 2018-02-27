@@ -1,12 +1,12 @@
 <template>
   <div class="card mb-3 movie-card">
-    <div class="card-block">
+    <div class="card-block" v-if="movie">
       <div class="card-bkg">
         <div class="hero-vignette"></div>
         <img
           alt="Movie Cover"
           class="card-imt-top"
-          :src="getCover"
+          :src="cover"
         />
       </div>
       <div class="card-block-detail">
@@ -44,12 +44,8 @@
 import HfCommentForm from './components/comment-form.component.vue';
 import HfCommentList from './components/comment-list.component.vue';
 
-import {
-  getMovieById,
-  getCommentsById,
-  deleteCommentById,
-  addCommentByMovieId,
-} from '../home.sandbox';
+import homeSandbox from '../home.sandbox';
+import {mapActions} from 'vuex';
 
 export default {
   name: 'HfMovieDetails',
@@ -59,19 +55,35 @@ export default {
   },
   data() {
     return {
-      movie: getMovieById(+this.$route.params.id),
-      comments: getCommentsById(+this.$route.params.id),
+      comments: homeSandbox.getCommentsById(+this.$route.params.id),
       imageUrl: 'https://image.tmdb.org/t/p//w1280',
     };
   },
+  created() {
+    if (!this.movie) {
+      this.LoadMovie(+this.$route.params.id);
+    }
+  },
   computed: {
-    getCover() {
+    movie() {
+      return this.$store.getters.getMovieById(+this.$route.params.id);
+    },
+    cover() {
       return `${this.imageUrl}${this.movie.backdropPath}`;
+    },
+    error() {
+      return this.$store.getters.getError;
+    },
+  },
+  watch: {
+    error() {
+      this.back();
     },
   },
   methods: {
+    ...mapActions(['LoadMovie']),
     back() {
-      this.$router.go(-1);
+      this.$router.push({path: '/home'});
     },
     onDeleteComment({id}) {
       deleteCommentById(+comment.id);

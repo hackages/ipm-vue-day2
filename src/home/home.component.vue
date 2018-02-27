@@ -1,13 +1,13 @@
 <template>
   <main class="main-content">
         <hf-menubar
-          :counter="filteredMovies.length"
+          :counter="moviesOrderByTitle.length"
           :selectTab="selectTab"
           :categories="categories"
         ></hf-menubar>
           <hf-movie-list
             :toggleSideBar="toggleSideBar"
-            :filteredMovies="filteredMovies || []">
+            :movies="moviesOrderByTitle">
           </hf-movie-list>
           <hf-sidebar
             :onClick="onClickSideBar"
@@ -23,14 +23,11 @@ import HfMenubar from './components/menubar.component.vue';
 import HfMovieList from './movie-list/movie-list.component.vue';
 import HfSidebar from './components/sidebar.component.vue';
 
-import {
-  getOrderedByTitleMovies,
-  getOrderedCategories,
-  getOrderedGenres,
-} from './home.sandbox';
+import homeSandbox from './home.sandbox';
 import {Movie} from '@/core/api.type';
 import {HomeData} from '@/home/home.type';
-import auth from '../authentication/authentication.service';
+import {orderBy} from 'lodash';
+import {mapGetters, mapActions} from 'vuex';
 
 export default {
   name: 'HfHome',
@@ -39,33 +36,45 @@ export default {
     HfMovieList,
     HfSidebar,
   },
-  data(): HomeData {
+  data() {
     return {
       toggleSideBar: true,
-      categories: getOrderedCategories(),
-      genres: getOrderedGenres(),
       searchValue: '',
-      movies: getOrderedByTitleMovies(50),
-      filteredMovies: [],
     };
   },
   created() {
-    this.filteredMovies = this.movies;
+    this.LoadMovies(50);
+    this.LoadCategories();
+    this.LoadGenres();
   },
-  methods: {
-    selectTab(category: string) {
-      this.categories = this.categories.map(filter => ({
-        ...filter,
-        selected: filter.category === category,
-      }));
-      this.filterMovies();
-    },
-    filterMovies() {
-      const selectedCategory = this.categories.filter(f => f.selected)[0]
-        .category;
-      this.filteredMovies = this.movies
+  computed: {
+    ...mapGetters({
+      categories: 'getCategories',
+      movies: 'getMovies',
+      genres: 'getGenres',
+    }),
+    filteredMovies() {
+      const filteredCategory = this.categories.filter(f => f.selected)[0];
+      const selectedCategory = filteredCategory
+        ? filteredCategory.category
+        : null;
+      return this.movies
         .filter(this.filterByCategory(selectedCategory))
         .filter(this.filterByTitle(this.searchValue));
+    },
+    moviesOrderByTitle() {
+      return orderBy(this.filteredMovies, ['title']);
+    },
+  },
+  methods: {
+    ...mapActions([
+      'LoadMovies',
+      'LoadCategories',
+      'SelectedCategory',
+      'LoadGenres',
+    ]),
+    selectTab(category: string) {
+      this.SelectedCategory(category);
     },
     filterByCategory(selectedCategory: string): (movie: Movie) => boolean {
       return movie =>
@@ -83,17 +92,14 @@ export default {
       );
     },
     getGenreId(name: string): number {
-      return this.genres.filter(genre => genre.name === name)[0].id;
+      const filteredGenre = this.genres.filter(genre => genre.name === name)[0];
+      return filteredGenre ? filteredGenre.id : null;
     },
     onClickSideBar(toggle: boolean): void {
       this.toggleSideBar = toggle;
-      if (toggle) {
-        this.filterMovies();
-      }
     },
     onSearchSideBar(searchValue: string): void {
       this.searchValue = searchValue;
-      this.filterMovies();
     },
   },
 };

@@ -3,7 +3,7 @@
     <hf-movie
       class="movie"
       :key="movie.id"
-      v-for="movie in filteredMoviesLite"
+      v-for="movie in filteredMovies"
       :movie="movie">
     </hf-movie>
   </section>
@@ -14,7 +14,7 @@ import {MovieLite} from '@/core/api.type';
 
 export default {
   props: {
-    filteredMovies: {
+    movies: {
       type: Array,
       required: true,
     },
@@ -33,8 +33,8 @@ export default {
     };
   },
   computed: {
-    filteredMoviesLite(): MovieLite[] {
-      return this.filteredMovies.map(({title, id, posterPath, overview}) => ({
+    filteredMovies(): MovieLite[] {
+      return this.movies.map(({title, id, posterPath, overview}) => ({
         id,
         title,
         posterFullPath: `${this.baseUrlCDN}${posterPath}`,

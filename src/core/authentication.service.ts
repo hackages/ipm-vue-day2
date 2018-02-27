@@ -8,7 +8,7 @@ export default {
       this.user.authenticated = true;
       ctx.$router.push({path: '/home'});
     } else {
-      ctx.error = 'Login Fail';
+      ctx.errorLogin = true;
     }
   },
   logout(ctx): void {

@@ -2,15 +2,19 @@ import {Movie, Category, Genre, Comment} from '@/core/api.type';
 import {IApiService} from '@/core/i-api.service';
 
 export class ApiService implements IApiService {
-  getMovies(): Movie[] {
+  getMovies(count: number): Promise<Movie[]> {
     return;
   }
 
-  getCategories(): Category[] {
+  getMovieById(id: number): Promise<Movie> {
+    throw new Error('Method not implemented.');
+  }
+
+  getCategories(): Promise<Category[]> {
     return;
   }
 
-  getGenres(): Genre[] {
+  getGenres(): Promise<Genre[]> {
     return;
   }
 

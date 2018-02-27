@@ -19,7 +19,8 @@
     "vee-validate": "^2.0.4",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vue-strap": "^1.1.40"
+    "vue-strap": "^1.1.40",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.1",
@@ -32,17 +33,34 @@
     "vue-template-compiler": "^2.5.13"
   },
   "babel": {
-    "presets": ["@vue/app"]
+    "presets": [
+      "@vue/app"
+    ]
   },
   "postcss": {
     "plugins": {
       "autoprefixer": {}
     }
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "lint-staged": {
-    "*.ts": ["prettier --write", "npm run lint", "git add"],
-    "*.vue": ["prettier --write", "npm run lint", "git add"],
-    "*.json": ["prettier --write", "git add"]
+    "*.ts": [
+      "prettier --write",
+      "npm run lint",
+      "git add"
+    ],
+    "*.vue": [
+      "prettier --write",
+      "npm run lint",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
