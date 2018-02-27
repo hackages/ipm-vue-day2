@@ -1,5 +1,5 @@
 import {Movie} from '@/core/api.type';
-import {SET_MOVIES, SET_ERROR, LOAD_MOVIES} from './index';
+import {SET_MOVIES, SET_ERROR, LOAD_MOVIES, LOAD_MOVIE, SET_MOVIE} from './index';
 import Vue from 'vue';
 
 interface State {
@@ -12,19 +12,19 @@ export const state: State = {
 };
 
 export const mutations = {
-  LOAD_MOVIES(state) {
+  [LOAD_MOVIES](state) {
     state.error = null;
   },
-  SET_MOVIES(state, movies) {
+  [SET_MOVIES](state, movies) {
     state.movies = movies;
   },
-  LOAD_MOVIE(state) {
+  [LOAD_MOVIE](state) {
     state.error = null;
   },
-  SET_MOVIE(state, movie) {
+  [SET_MOVIE](state, movie) {
     state.movies = [...state.movies, movie];
   },
-  SET_ERROR(state, error) {
+  [SET_ERROR](state, error) {
     state.error = error;
   },
 };

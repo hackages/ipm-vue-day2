@@ -1,4 +1,4 @@
-import {apiService} from '@/core/store/store';
+import {apiService} from '@/core/state/store';
 
 export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
 export const SET_CATEGORIES = 'SET_CATEGORIES';
@@ -12,8 +12,5 @@ export const actions = {
       .getCategories()
       .then(categories => commit(SET_CATEGORIES, categories))
       .catch(error => commit(SET_ERROR, error));
-  },
-  SelectedCategory({commit}, category) {
-    commit(UDAPTE_SELECTED_CATEGORY, category);
   },
 };

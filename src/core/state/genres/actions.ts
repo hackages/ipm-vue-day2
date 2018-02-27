@@ -1,4 +1,4 @@
-import {apiService} from '@/core/store/store';
+import {apiService} from '@/core/state/store';
 
 export const LOAD_GENRES = 'LOAD_GENRES';
 export const SET_GENRES = 'SET_GENRES';

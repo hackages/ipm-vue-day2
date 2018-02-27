@@ -11,13 +11,13 @@ export const state: State = {
 };
 
 export const mutations = {
-  LOAD_GENRES(state) {
+  [LOAD_GENRES](state) {
     state.error = null;
   },
-  SET_GENRES(state, genres) {
+  [SET_GENRES](state, genres) {
     state.genres = genres;
   },
-  SET_ERROR(state, error) {
+  [SET_ERROR](state, error) {
     state.error = error;
   },
 };

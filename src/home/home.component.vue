@@ -27,7 +27,8 @@ import homeSandbox from './home.sandbox';
 import {Movie} from '@/core/api.type';
 import {HomeData} from '@/home/home.type';
 import {orderBy} from 'lodash';
-import {mapGetters, mapActions} from 'vuex';
+import {mapGetters, mapActions, mapMutations} from 'vuex';
+import {UDAPTE_SELECTED_CATEGORY} from '../core/state/categories';
 
 export default {
   name: 'HfHome',
@@ -67,12 +68,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      'LoadMovies',
-      'LoadCategories',
-      'SelectedCategory',
-      'LoadGenres',
-    ]),
+    ...mapActions(['LoadMovies', 'LoadCategories', 'LoadGenres']),
+    ...mapMutations({SelectedCategory: 'UDAPTE_SELECTED_CATEGORY'}),
     selectTab(category: string) {
       this.SelectedCategory(category);
     },
