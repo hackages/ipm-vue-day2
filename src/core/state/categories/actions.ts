@@ -1,4 +1,10 @@
-import {apiService} from '@/core/state/store';
+import { ApiService } from "@/core/api.service";
+import { ApiMocksService } from "@/core/api-mocks.service";
+
+export const apiService =
+  process.env.NODE_ENV === 'production'
+    ? new ApiService()
+    : new ApiMocksService();
 
 export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
 export const SET_CATEGORIES = 'SET_CATEGORIES';
