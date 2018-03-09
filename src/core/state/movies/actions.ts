@@ -1,10 +1,4 @@
-import {ApiService} from '@/core/api.service';
-import {ApiMocksService} from '@/core/api-mocks.service';
-
-export const apiService =
-  process.env.NODE_ENV === 'production'
-    ? new ApiService()
-    : new ApiMocksService();
+import settingsProvider from '@/core/settings.provider';
 
 export const LOAD_MOVIES = 'LOAD_MOVIES';
 export const SET_MOVIES = 'SET_MOVIES';
@@ -14,14 +8,14 @@ export const SET_ERROR = 'SET_ERROR';
 export const actions = {
   LoadMovies({commit}, count) {
     commit(LOAD_MOVIES);
-    apiService
+    settingsProvider.apiService
       .getMovies(count)
       .then(movies => commit(SET_MOVIES, movies))
       .catch(error => commit(SET_ERROR, error));
   },
   LoadMovie({commit}, id) {
     commit(LOAD_MOVIE);
-    apiService
+    settingsProvider.apiService
       .getMovieById(id)
       .then(movies => commit(SET_MOVIE, movies))
       .catch(error => commit(SET_ERROR, error));
