@@ -61,3 +61,4 @@ sftp-config*
 .ida
 build/
 dist/
+.idea
