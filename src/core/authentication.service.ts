@@ -18,10 +18,6 @@ export default {
   },
   checkAuth(): void {
     const jwt = localStorage.getItem('access_token');
-    if (jwt) {
-      this.user.authenticated = true;
-    } else {
-      this.user.authenticated = false;
-    }
+    this.user.authenticated = !!jwt;
   },
 };
