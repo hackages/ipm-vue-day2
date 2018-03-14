@@ -1,21 +1,11 @@
 <template>
   <main class="main-content">
-        <hf-menubar
-          :counter="moviesOrderByTitle.length"
-          :selectTab="selectTab"
-          :categories="categories"
-        ></hf-menubar>
-          <hf-movie-list
-            :toggleSideBar="toggleSideBar"
-            :movies="moviesOrderByTitle">
-          </hf-movie-list>
-          <hf-sidebar
-            :onClick="onClickSideBar"
-            :onSearch="onSearchSideBar"
-            :searchValue="searchValue"
-            :toggle="toggleSideBar">
-          </hf-sidebar>
-    </main>
+    <hf-menubar :counter="moviesOrderByTitle.length" :selectTab="selectTab" :categories="categories"></hf-menubar>
+    <hf-movie-list :toggleSideBar="toggleSideBar" :movies="moviesOrderByTitle">
+    </hf-movie-list>
+    <hf-sidebar :onClick="onClickSideBar" :onSearch="onSearchSideBar" :searchValue="searchValue" :toggle="toggleSideBar">
+    </hf-sidebar>
+  </main>
 </template>
 
 <script lang="ts">
@@ -23,13 +13,10 @@ import HfMenubar from './components/menubar.component.vue';
 import HfMovieList from './movie-list/movie-list.component.vue';
 import HfSidebar from './components/sidebar.component.vue';
 
-import homeSandbox from './home.sandbox';
 import {Movie} from '@/core/api.type';
-import {HomeData} from '@/home/home.type';
 import {orderBy} from 'lodash';
 import {mapGetters, mapActions, mapMutations} from 'vuex';
-import {UDAPTE_SELECTED_CATEGORY} from '../core/state/categories';
-//const UDAPTE_SELECTED_CATEGORY = 'UDAPTE_SELECTED_CATEGORY';
+import {UDAPTE_SELECTED_CATEGORY} from '../core/state/modules/categories';
 
 export default {
   name: 'HfHome',
