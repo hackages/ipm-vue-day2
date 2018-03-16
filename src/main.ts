@@ -9,6 +9,8 @@ import settingsProvider from '@/core/settings.provider';
 Vue.use(VeeValidate);
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production';
+
+/* async components */
 authenticationService.checkAuth();
 settingsProvider.loadConfig();
 
