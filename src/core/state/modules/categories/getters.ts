@@ -1,3 +1,3 @@
 export const getters = {
-  getCategories: state => state.categories
+  getCategories: state => state.categories,
 };
