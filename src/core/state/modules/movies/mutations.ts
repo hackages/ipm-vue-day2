@@ -6,7 +6,6 @@ import {
   LOAD_MOVIE,
   SET_MOVIE,
 } from './index';
-import Vue from 'vue';
 
 interface State {
   movies: {[id: number]: Movie};
