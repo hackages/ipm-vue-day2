@@ -3,11 +3,7 @@
     <div class="card-block" v-if="movie">
       <div class="card-bkg">
         <div class="hero-vignette"></div>
-        <img
-          alt="Movie Cover"
-          class="card-imt-top"
-          :src="cover"
-        />
+        <img alt="Movie Cover" class="card-imt-top" :src="cover" />
       </div>
       <div class="card-block-detail">
         <h1 class="black">
@@ -22,15 +18,13 @@
         <p>
           {{movie.overview}}
         </p>
-        <button
-          class="btn btn-primary"
-          @click="back()">
+        <button class="btn btn-primary" @click="back()">
           Back
         </button>
       </div>
       <div class="card-block-footer">
         <div class="comments-block">
-        <hf-comment-form :onSubmit="onSubmitComment"></hf-comment-form>
+          <hf-comment-form :onSubmit="onSubmitComment"></hf-comment-form>
           <div class="movie-comments">
             <hf-comment-list :comments="comments" :onDeteleComment="onDeleteComment"></hf-comment-list>
           </div>
@@ -41,10 +35,9 @@
 </template>
 
 <script>
-import HfCommentForm from './components/comment-form.component.vue';
-import HfCommentList from './components/comment-list.component.vue';
+import HfCommentForm from './components/comment-form.component';
+import HfCommentList from './components/comment-list.component';
 
-import homeSandbox from '../home.sandbox';
 import {mapActions} from 'vuex';
 
 export default {
@@ -55,7 +48,6 @@ export default {
   },
   data() {
     return {
-      comments: homeSandbox.getCommentsById(+this.$route.params.id),
       imageUrl: 'https://image.tmdb.org/t/p//w1280',
     };
   },
@@ -63,13 +55,19 @@ export default {
     if (!this.movie) {
       this.LoadMovie(+this.$route.params.id);
     }
+    if (this.comments.length === 0) {
+      this.LoadCommentsByMovie(+this.$route.params.id);
+    }
   },
   computed: {
     movie() {
       return this.$store.getters.getMovieById(+this.$route.params.id);
     },
     cover() {
-      return `${this.imageUrl}${this.movie.backdropPath}`;
+      return `${this.imageUrl}${(this.movie || {}).backdropPath}`;
+    },
+    comments() {
+      return this.$store.getters.getCommentsByMovie(+this.$route.params.id);
     },
     error() {
       return this.$store.getters.getError;
@@ -81,17 +79,20 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['LoadMovie']),
+    ...mapActions([
+      'LoadMovie',
+      'LoadCommentsByMovie',
+      'AddCommentByMovie',
+      'DelCommentByMovie',
+    ]),
     back() {
       this.$router.push({path: '/home'});
     },
-    onDeleteComment({id}) {
-      deleteCommentById(+comment.id);
-      this.comments = this.comments.filter(comment => comment.id !== id);
+    onDeleteComment({movieId, id}) {
+      this.DelCommentByMovie({movieId, id});
     },
     onSubmitComment(comment) {
-      this.comments = [...this.comments, comment];
-      addCommentByMovieId(comment);
+      this.AddCommentByMovie(comment);
     },
   },
 };

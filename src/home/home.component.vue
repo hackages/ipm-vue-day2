@@ -3,7 +3,7 @@
     <hf-menubar :counter="moviesOrderByTitle.length" :selectTab="selectTab" :categories="categories"></hf-menubar>
     <hf-movie-list :toggleSideBar="toggleSideBar" :movies="moviesOrderByTitle">
     </hf-movie-list>
-    <hf-sidebar :onClick="onClickSideBar" :onSearch="onSearchSideBar" :searchValue="searchValue" :toggle="toggleSideBar">
+    <hf-sidebar :onClick="onClickSideBar" v-model="searchValue" :toggle="toggleSideBar">
     </hf-sidebar>
   </main>
 </template>
