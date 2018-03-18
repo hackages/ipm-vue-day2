@@ -5,11 +5,11 @@
         <div class="filter-block">
           <h4>Search</h4>
           <div class="filter-content">
-            <input  type="search" placeholder="title" :value="searchValue" @input="onSearch($event.target.value)"/>
+            <input type="search" placeholder="title" :value="value" v-on="listeners" />
           </div>
         </div>
       </form>
-      <a class="hand-cursor close-f" @click="onClick(!toggle)" >Close</a>
+      <a class="hand-cursor close-f" @click="onClick(!toggle)">Close</a>
     </div>
     <a class="hand-cursor filter-trigger" @click="onClick(!toggle)">
       Filters
@@ -21,11 +21,7 @@
 export default {
   name: 'HfSidebar',
   props: {
-    onSearch: {
-      type: Function,
-      required: true,
-    },
-    searchValue: {
+    value: {
       type: String,
       required: true,
     },
@@ -36,6 +32,14 @@ export default {
     toggle: {
       type: Boolean,
       required: true,
+    },
+  },
+  computed: {
+    listeners() {
+      return {
+        ...this.$listeners,
+        input: event => this.$emit('input', event.target.value),
+      };
     },
   },
 };

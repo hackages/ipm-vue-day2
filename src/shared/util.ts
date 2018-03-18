@@ -13,3 +13,11 @@ export const camelCaseMapper = data => {
   }
   return camelCaseObject;
 };
+
+export const delay = <T>(time) => {
+  return (x: T): Promise<T> => {
+    return new Promise(res => {
+      setTimeout(() => res(x), time);
+    });
+  };
+};

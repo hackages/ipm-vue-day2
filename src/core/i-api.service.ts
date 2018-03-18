@@ -5,7 +5,7 @@ export abstract class IApiService {
   abstract getMovieById(id: number): Promise<Movie>;
   abstract getCategories(): Promise<Category[]>;
   abstract getGenres(): Promise<Genre[]>;
-  abstract getCommentsByMovieId(id: number): Comment[];
-  abstract addCommentByMovieId(comment: Comment): Comment;
-  abstract deleteCommentById(id: number): string;
+  abstract getCommentsByMovieId(id: number): Promise<Comment[]>;
+  abstract addCommentByMovieId(comment: Comment): Promise<Comment>;
+  abstract deleteCommentById(movieId: number, id: number): Promise<string>;
 }

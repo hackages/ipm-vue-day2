@@ -18,15 +18,15 @@ export class ApiService implements IApiService {
     return;
   }
 
-  getCommentsByMovieId(id: number): Comment[] {
+  getCommentsByMovieId(id: number): Promise<Comment[]> {
     return;
   }
 
-  addCommentByMovieId(comment: Comment): Comment {
-    throw new Error('Method not implemented.');
+  addCommentByMovieId(comment: Comment): Promise<Comment> {
+    return;
   }
 
-  deleteCommentById(id: number): string {
-    throw new Error('Method not implemented.');
+  deleteCommentById(movieId: number, id: number): Promise<string> {
+    return;
   }
 }

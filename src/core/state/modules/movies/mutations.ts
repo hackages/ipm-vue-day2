@@ -1,13 +1,18 @@
 import {Movie} from '@/core/api.type';
-import {SET_MOVIES, SET_ERROR, LOAD_MOVIES, LOAD_MOVIE, SET_MOVIE} from './index';
-import Vue from 'vue';
+import {
+  SET_MOVIES,
+  SET_ERROR,
+  LOAD_MOVIES,
+  LOAD_MOVIE,
+  SET_MOVIE,
+} from './index';
 
 interface State {
-  movies: Movie[];
+  movies: {[id: number]: Movie};
   error: string;
 }
 export const state: State = {
-  movies: [],
+  movies: {},
   error: null,
 };
 
@@ -16,13 +21,16 @@ export const mutations = {
     state.error = null;
   },
   [SET_MOVIES](state, movies) {
-    state.movies = movies;
+    state.movies = movies.reduce(
+      (acc, it: Movie) => ({...acc, [it.id]: it}),
+      {}
+    );
   },
   [LOAD_MOVIE](state) {
     state.error = null;
   },
   [SET_MOVIE](state, movie) {
-    state.movies = [...state.movies, movie];
+    state.movies = {...state.movie, [movie.id]: movie};
   },
   [SET_ERROR](state, error) {
     state.error = error;
