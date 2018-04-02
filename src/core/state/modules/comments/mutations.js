@@ -1,4 +1,3 @@
-import {Comment} from '@/core/api.type';
 import {
   LOAD_COMMENTS_BY_MOVIE,
   SET_COMMENTS_BY_MOVIE,
@@ -7,15 +6,7 @@ import {
   SET_ERROR,
 } from './index';
 
-interface CommentsByMovie {
-  [key: number]: Comment[];
-}
-
-interface State {
-  comments: CommentsByMovie;
-  error: string;
-}
-export const state: State = {
+export const state = {
   comments: {},
   error: null,
 };
@@ -24,7 +15,7 @@ export const mutations = {
   [LOAD_COMMENTS_BY_MOVIE](state) {
     state.error = null;
   },
-  [SET_COMMENTS_BY_MOVIE](state, comments: Comment[]) {
+  [SET_COMMENTS_BY_MOVIE](state, comments) {
     state.comments = {...state.comments, ...comments};
   },
   [ADD_COMMENTS_BY_MOVIE](state, comment) {

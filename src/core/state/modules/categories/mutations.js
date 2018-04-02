@@ -1,4 +1,3 @@
-import {Category} from '@/core/api.type';
 import {
   LOAD_CATEGORIES,
   SET_ERROR,
@@ -6,11 +5,7 @@ import {
   UDAPTE_SELECTED_CATEGORY,
 } from './index';
 
-interface State {
-  categories: Category[];
-  error: string;
-}
-export const state: State = {
+export const state = {
   categories: [],
   error: null,
 };

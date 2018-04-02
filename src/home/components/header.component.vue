@@ -1,6 +1,7 @@
 <template>
   <header>
-    <img :src="logo" alt="logo"/>
+    <img :src="logo"
+         alt="logo" />
   </header>
 </template>
 

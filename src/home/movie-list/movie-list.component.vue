@@ -1,16 +1,15 @@
 <template>
-  <section :class="{'filter-is-visible':!toggleSideBar}" class="gallery">
-    <hf-movie
-      class="movie"
-      :key="movie.id"
-      v-for="movie in filteredMovies"
-      :movie="movie">
+  <section :class="{'filter-is-visible':!toggleSideBar}"
+           class="gallery">
+    <hf-movie class="movie"
+              :key="movie.id"
+              v-for="movie in filteredMovies"
+              :movie="movie">
     </hf-movie>
   </section>
 </template>
-<script lang="ts">
-import HfMovie from './components/movie.component.vue';
-import {MovieLite} from '@/core/api.type';
+<script>
+import HfMovie from './components/movie.component';
 
 export default {
   props: {
@@ -33,7 +32,7 @@ export default {
     };
   },
   computed: {
-    filteredMovies(): MovieLite[] {
+    filteredMovies() {
       return this.movies.map(({title, id, posterPath, overview}) => ({
         id,
         title,

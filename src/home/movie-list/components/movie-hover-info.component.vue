@@ -1,6 +1,6 @@
 <template>
   <div :class="{'show-movie-body': isContainerHovered}"
-    class="movie-body">
+       class="movie-body">
     <h1>{{movie.title}}</h1>
     <p>{{movie.overview}}</p>
 
@@ -10,7 +10,9 @@
     <button class="btn add">
       Add to cart
     </button>
-    <router-link class="btn btn-link" :to="{name:'details' , params: {id:movie.id}}" tag="button">See the details</router-link>
+    <router-link class="btn btn-link"
+                 :to="{name:'details' , params: {id:movie.id}}"
+                 tag="button">See the details</router-link>
   </div>
 </template>
 

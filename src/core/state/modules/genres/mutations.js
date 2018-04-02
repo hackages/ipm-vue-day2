@@ -1,11 +1,6 @@
-import {Category, Genre} from '@/core/api.type';
 import {LOAD_GENRES, SET_ERROR, SET_GENRES} from './index';
 
-interface State {
-  genres: Genre[];
-  error: string;
-}
-export const state: State = {
+export const state = {
   genres: [],
   error: null,
 };

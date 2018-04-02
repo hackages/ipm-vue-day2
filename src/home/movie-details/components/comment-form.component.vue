@@ -1,43 +1,45 @@
 <template>
-<form class="comment-form" @submit.prevent>
-  <div class="form-group">
-    <input type="text"
-          class="form-control"
-          id="author"
-          v-model="form.author"
-          name="author"
-           placeholder="Author"/>
+  <form class="comment-form"
+        @submit.prevent>
+    <div class="form-group">
+      <input type="text"
+             class="form-control"
+             id="author"
+             v-model="form.author"
+             name="author"
+             placeholder="Author" />
 
-      <div class="form-control-feedback" v-if="form.author.length ===0">
+      <div class="form-control-feedback"
+           v-if="form.author.length ===0">
         <div>
           Author is required
         </div>
       </div>
     </div>
 
-  <div class="form-group">
-    <input type="comment"
-          class="form-control"
-           id="comment"
-           name="comment"
-           v-model="form.content"
-           placeholder="Comment"/>
+    <div class="form-group">
+      <input type="comment"
+             class="form-control"
+             id="comment"
+             name="comment"
+             v-model="form.content"
+             placeholder="Comment" />
 
-    <div class="form-control-feedback"
-      v-if="form.content.length ===0">
-      <div>
-        Comment is required
+      <div class="form-control-feedback"
+           v-if="form.content.length ===0">
+        <div>
+          Comment is required
+        </div>
       </div>
     </div>
-  </div>
 
-  <button type="submit"
-          class="btn btn-primary"
-          :disabled="form.content.length === 0 || form.author.length === 0"
-          @click="onSubmit(form)">
-    Submit
-  </button>
-</form>
+    <button type="submit"
+            class="btn btn-primary"
+            :disabled="form.content.length === 0 || form.author.length === 0"
+            @click="onSubmit(form)">
+      Submit
+    </button>
+  </form>
 
 </template>
 

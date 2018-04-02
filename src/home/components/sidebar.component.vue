@@ -1,17 +1,23 @@
 <template>
   <div>
-    <div class="filter" :class="{'filter-is-visible':!toggle}">
+    <div class="filter"
+         :class="{'filter-is-visible':!toggle}">
       <form @submit.prevent>
         <div class="filter-block">
           <h4>Search</h4>
           <div class="filter-content">
-            <input type="search" placeholder="title" :value="value" v-on="listeners" />
+            <input type="search"
+                   placeholder="title"
+                   :value="value"
+                   v-on="listeners" />
           </div>
         </div>
       </form>
-      <a class="hand-cursor close-f" @click="onClick(!toggle)">Close</a>
+      <a class="hand-cursor close-f"
+         @click="onClick(!toggle)">Close</a>
     </div>
-    <a class="hand-cursor filter-trigger" @click="onClick(!toggle)">
+    <a class="hand-cursor filter-trigger"
+       @click="onClick(!toggle)">
       Filters
     </a>
   </div>

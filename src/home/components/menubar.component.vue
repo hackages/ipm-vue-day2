@@ -1,14 +1,13 @@
 <template>
   <div class="tab-filter-wrapper">
-  <div class="tab-filter">
-    <div class="filters">
-      <ul class="filters-list">
-        <li
-          v-for="category in categories"
-          :key="category.category"
-          @click="selectTab(category.category)">
-          <a :class="{'selected': category.selected}">{{category.category}}</a>
-        </li>
+    <div class="tab-filter">
+      <div class="filters">
+        <ul class="filters-list">
+          <li v-for="category in categories"
+              :key="category.category"
+              @click="selectTab(category.category)">
+            <a :class="{'selected': category.selected}">{{category.category}}</a>
+          </li>
         </ul>
         <ul class="misc">
           <li class="counter">

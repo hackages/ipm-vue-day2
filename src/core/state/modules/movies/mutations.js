@@ -1,4 +1,3 @@
-import {Movie} from '@/core/api.type';
 import {
   SET_MOVIES,
   SET_ERROR,
@@ -7,11 +6,7 @@ import {
   SET_MOVIE,
 } from './index';
 
-interface State {
-  movies: {[id: number]: Movie};
-  error: string;
-}
-export const state: State = {
+export const state = {
   movies: {},
   error: null,
 };
@@ -21,10 +16,7 @@ export const mutations = {
     state.error = null;
   },
   [SET_MOVIES](state, movies) {
-    state.movies = movies.reduce(
-      (acc, it: Movie) => ({...acc, [it.id]: it}),
-      {}
-    );
+    state.movies = movies.reduce((acc, it) => ({...acc, [it.id]: it}), {});
   },
   [LOAD_MOVIE](state) {
     state.error = null;

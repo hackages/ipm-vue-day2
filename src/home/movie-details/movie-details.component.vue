@@ -1,9 +1,12 @@
 <template>
   <div class="card mb-3 movie-card">
-    <div class="card-block" v-if="movie">
+    <div class="card-block"
+         v-if="movie">
       <div class="card-bkg">
         <div class="hero-vignette"></div>
-        <img alt="Movie Cover" class="card-imt-top" :src="cover" />
+        <img alt="Movie Cover"
+             class="card-imt-top"
+             :src="cover" />
       </div>
       <div class="card-block-detail">
         <h1 class="black">
@@ -18,7 +21,8 @@
         <p>
           {{movie.overview}}
         </p>
-        <button class="btn btn-primary" @click="back()">
+        <button class="btn btn-primary"
+                @click="back()">
           Back
         </button>
       </div>
@@ -26,7 +30,8 @@
         <div class="comments-block">
           <hf-comment-form :onSubmit="onSubmitComment"></hf-comment-form>
           <div class="movie-comments">
-            <hf-comment-list :comments="comments" :onDeteleComment="onDeleteComment"></hf-comment-list>
+            <hf-comment-list :comments="comments"
+                             :onDeteleComment="onDeleteComment"></hf-comment-list>
           </div>
         </div>
       </div>

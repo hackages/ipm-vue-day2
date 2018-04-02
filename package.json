@@ -25,7 +25,6 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.1",
     "@vue/cli-plugin-eslint": "^3.0.0-beta.1",
-    "@vue/cli-plugin-typescript": "^3.0.0-beta.1",
     "@vue/cli-service": "^3.0.0-beta.1",
     "husky": "^0.14.3",
     "lint-staged": "^6.1.1",
@@ -33,34 +32,17 @@
     "vue-template-compiler": "^2.5.13"
   },
   "babel": {
-    "presets": [
-      "@vue/app"
-    ]
+    "presets": ["@vue/app"]
   },
   "postcss": {
     "plugins": {
       "autoprefixer": {}
     }
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
   "lint-staged": {
-    "*.ts": [
-      "prettier --write",
-      "npm run lint",
-      "git add"
-    ],
-    "*.vue": [
-      "prettier --write",
-      "npm run lint",
-      "git add"
-    ],
-    "*.json": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.js": ["prettier --write", "npm run lint", "git add"],
+    "*.vue": ["prettier --write", "npm run lint", "git add"],
+    "*.{css,scss,json,md}": ["prettier --write", "git add"]
   }
 }

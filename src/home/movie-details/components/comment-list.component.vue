@@ -1,10 +1,9 @@
 <template>
   <div>
-    <hf-comment
-      v-for="comment in comments"
-      :key="comment.id"
-      :comment="comment"
-      :onDelete="onDeteleComment">
+    <hf-comment v-for="comment in comments"
+                :key="comment.id"
+                :comment="comment"
+                :onDelete="onDeteleComment">
     </hf-comment>
   </div>
 </template>

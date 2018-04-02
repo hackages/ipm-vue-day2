@@ -1,19 +1,23 @@
 <template>
   <main class="main-content">
-    <hf-menubar :counter="moviesOrderByTitle.length" :selectTab="selectTab" :categories="categories"></hf-menubar>
-    <hf-movie-list :toggleSideBar="toggleSideBar" :movies="moviesOrderByTitle">
+    <hf-menubar :counter="moviesOrderByTitle.length"
+                :selectTab="selectTab"
+                :categories="categories"></hf-menubar>
+    <hf-movie-list :toggleSideBar="toggleSideBar"
+                   :movies="moviesOrderByTitle">
     </hf-movie-list>
-    <hf-sidebar :onClick="onClickSideBar" v-model="searchValue" :toggle="toggleSideBar">
+    <hf-sidebar :onClick="onClickSideBar"
+                v-model="searchValue"
+                :toggle="toggleSideBar">
     </hf-sidebar>
   </main>
 </template>
 
-<script lang="ts">
-import HfMenubar from './components/menubar.component.vue';
-import HfMovieList from './movie-list/movie-list.component.vue';
-import HfSidebar from './components/sidebar.component.vue';
+<script>
+import HfMenubar from './components/menubar.component';
+import HfMovieList from './movie-list/movie-list.component';
+import HfSidebar from './components/sidebar.component';
 
-import {Movie} from '@/core/api.type';
 import {orderBy} from 'lodash';
 import {mapGetters, mapActions, mapMutations} from 'vuex';
 import {UDAPTE_SELECTED_CATEGORY} from '../core/state/modules/categories';
@@ -58,32 +62,32 @@ export default {
   methods: {
     ...mapActions(['LoadMovies', 'LoadCategories', 'LoadGenres']),
     ...mapMutations({SelectedCategory: UDAPTE_SELECTED_CATEGORY}),
-    selectTab(category: string) {
+    selectTab(category) {
       this.SelectedCategory(category);
     },
-    filterByCategory(selectedCategory: string): (movie: Movie) => boolean {
+    filterByCategory(selectedCategory) {
       return movie =>
         selectedCategory === 'All' ||
         this.movieContainsGenre(movie, this.getGenreId(selectedCategory));
     },
-    filterByTitle(title: string): (movie: Movie) => boolean {
+    filterByTitle(title) {
       return movie =>
         !title || movie.title.toLowerCase().includes(title.toLowerCase());
     },
-    movieContainsGenre(movie: Movie, genreId: number): boolean {
+    movieContainsGenre(movie, genreId) {
       return movie.genreIds.reduce(
         (contains, next) => contains || next === genreId,
         false
       );
     },
-    getGenreId(name: string): number {
+    getGenreId(name) {
       const filteredGenre = this.genres.filter(genre => genre.name === name)[0];
       return filteredGenre ? filteredGenre.id : null;
     },
-    onClickSideBar(toggle: boolean): void {
+    onClickSideBar(toggle) {
       this.toggleSideBar = toggle;
     },
-    onSearchSideBar(searchValue: string): void {
+    onSearchSideBar(searchValue) {
       this.searchValue = searchValue;
     },
   },

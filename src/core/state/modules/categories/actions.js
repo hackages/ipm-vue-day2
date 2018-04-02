@@ -1,4 +1,4 @@
-import settingsProvider from '@/core/settings.provider';
+import settingsProvider from '@/core/settings.provider.js';
 
 export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
 export const SET_CATEGORIES = 'SET_CATEGORIES';

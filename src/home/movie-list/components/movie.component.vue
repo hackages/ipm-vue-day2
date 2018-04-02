@@ -1,15 +1,11 @@
 <template>
-  <router-link
-    :to="{name:'details' , params: {id: movie.id}}"
-    @mouseenter="toggleHoverForTheMovie()"
-    @mouseleave="toggleHoverForTheMovie()">
-    <img
-      :alt="movie.title + 'cover' "
-      :src="movie.posterFullPath"
-    />
-    <hf-movie-hover-info
-      :movie="movie"
-      :isContainerHovered="isHovered">
+  <router-link :to="{name:'details' , params: {id: movie.id}}"
+               @mouseenter="toggleHoverForTheMovie()"
+               @mouseleave="toggleHoverForTheMovie()">
+    <img :alt="movie.title + 'cover' "
+         :src="movie.posterFullPath" />
+    <hf-movie-hover-info :movie="movie"
+                         :isContainerHovered="isHovered">
     </hf-movie-hover-info>
   </router-link>
 </template>
