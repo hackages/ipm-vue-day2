@@ -1,10 +1,15 @@
 module.exports = {
   root: true,
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: 'babel-eslint',
   },
   env: {
-    browser: true
+    browser: true,
+    amd: true,
+  },
+  globals: {
+    process: true,
+    module: true,
   },
   extends: ['plugin:vue/essential', 'eslint:recommended'],
   // required to lint *.vue files
@@ -16,6 +21,6 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     semi: [2, 'always', {omitLastInOneLineBlock: true}],
-    'space-before-function-paren': ['error', 'never']
-  }
+    'space-before-function-paren': ['error', 'never'],
+  },
 };
