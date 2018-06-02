@@ -10,7 +10,7 @@ export const actions = {
   LoadCommentsByMovie({commit}, id) {
     commit(LOAD_COMMENTS_BY_MOVIE);
     settingsProvider.apiService
-      .getCommentsByMovieId(id)
+      .getComments(id)
       .then(comments => commit(SET_COMMENTS_BY_MOVIE, {[id]: comments}))
       .catch(error => commit(SET_ERROR, error));
   },

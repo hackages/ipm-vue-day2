@@ -1,4 +1,4 @@
-import {camelCase, isPlainObject, forEach} from 'lodash';
+import {camelCase, forEach, isPlainObject} from 'lodash';
 
 export const camelCaseMapper = data => {
   let camelCaseObject;
@@ -14,6 +14,11 @@ export const camelCaseMapper = data => {
   }
   return camelCaseObject;
 };
+
+export const toArray = (obj = {}) =>
+  Object.keys(obj).map(function(key) {
+    return obj[key];
+  });
 
 export const delay = time => {
   return x => {

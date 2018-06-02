@@ -4,34 +4,34 @@ const time = 1000;
 
 export class ApiMocksService {
   getMovies(count) {
-    return import('../assets/mocks/movies.json')
+    return Promise.resolve(require('../assets/mocks/movies.json'))
       .then(d => camelCaseMapper(d))
       .then(d => d.slice(0, count))
       .then(delay(time));
   }
 
   getMovieById(id) {
-    return import('../assets/mocks/movies.json')
-      .then(d => camelCaseMapper(d))
+    return Promise.resolve(require('../assets/mocks/movies.json'))
+      .then(camelCaseMapper)
       .then(d => d.filter(movie => id === movie.id)[0])
       .then(delay(time));
   }
 
   getCategories() {
-    return import('../assets/mocks/categories.json')
-      .then(d => camelCaseMapper(d))
+    return Promise.resolve(require('../assets/mocks/categories.json'))
+      .then(camelCaseMapper)
       .then(delay(time));
   }
 
   getGenres() {
-    return import('../assets/mocks/genres.json')
-      .then(d => camelCaseMapper(d))
+    return Promise.resolve(require('../assets/mocks/genres.json'))
+      .then(camelCaseMapper)
       .then(delay(time));
   }
 
-  getCommentsByMovieId(id) {
-    return import('../assets/mocks/comments.json')
-      .then(d => camelCaseMapper(d))
+  getComments() {
+    return Promise.resolve(require('../assets/mocks/comments.json'))
+      .then(camelCaseMapper)
       .then(delay(time));
   }
 

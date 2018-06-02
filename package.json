@@ -8,7 +8,7 @@
     "start": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "format": "prettier --write 'src/**/*.ts'",
+    "format": "prettier --write 'src/**/*.js'",
     "format:vue": "prettier --write 'src/**/*.vue'",
     "precommit": "lint-staged"
   },

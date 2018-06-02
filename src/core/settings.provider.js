@@ -1,5 +1,5 @@
-import {ApiService} from '@/core/api.service.js';
 import {ApiMocksService} from '@/core/api-mocks.service.js';
+import {ApiService} from '@/core/api.service.js';
 
 export default {
   configuration: null,
