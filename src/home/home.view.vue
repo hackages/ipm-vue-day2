@@ -36,6 +36,7 @@ export default {
     };
   },
   created() {
+    // TODO: LoadMovies, LoadCategories, LoadGenres from vuex
     this.LoadMovies(50);
     this.LoadCategories();
     this.LoadGenres();
