@@ -3,8 +3,8 @@ import App from './App.vue';
 import router from './router';
 import VeeValidate from 'vee-validate';
 import store from './core/state/store';
-import authenticationService from '@/core/authentication.service';
-import settingsProvider from '@/core/settings.provider';
+import authenticationService from '@/core/services/authentication.service';
+import settingsProvider from '@/core/services/settings.provider';
 
 Vue.use(VeeValidate);
 

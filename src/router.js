@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import HfHome from '@/home/home.component';
-import HfAuthentication from '@/authentication/authentication.component';
-import HfMovieDetail from '@/home/movie-details/movie-details.component';
-import authenticationService from '@/core/authentication.service.js';
+import HfHome from './home/home.view';
+import HfAuthentication from './authentication/authentication.view';
+import HfMovieDetail from './movie-details/movie-details.view';
+import authenticationService from './core/services/authentication.service.js';
 
 const authGuard = (to, from, next) => {
   return authenticationService.user.authenticated ? next() : next('/auth');

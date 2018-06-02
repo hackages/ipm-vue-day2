@@ -1,4 +1,4 @@
-import settingsProvider from '@/core/settings.provider.js';
+import settingsProvider from '@/core/services/settings.provider.js';
 
 export const LOAD_MOVIES = 'LOAD_MOVIES';
 export const SET_MOVIES = 'SET_MOVIES';

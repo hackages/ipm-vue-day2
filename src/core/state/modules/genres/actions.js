@@ -1,4 +1,4 @@
-import settingsProvider from '@/core/settings.provider.js';
+import settingsProvider from '@/core/services/settings.provider.js';
 
 export const LOAD_GENRES = 'LOAD_GENRES';
 export const SET_GENRES = 'SET_GENRES';

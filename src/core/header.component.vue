@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import header from '../../assets/images/hackflix_logo.svg';
+import header from '../assets/images/hackflix_logo.svg';
 export default {
   name: 'HfHeader',
   data() {

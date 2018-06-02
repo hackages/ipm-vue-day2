@@ -1,4 +1,4 @@
-import settingsProvider from '@/core/settings.provider.js';
+import settingsProvider from '@/core/services/settings.provider.js';
 
 export const LOAD_COMMENTS_BY_MOVIE = 'LOAD_COMMENTS_BY_MOVIE';
 export const SET_COMMENTS_BY_MOVIE = 'SET_COMMENTS_BY_MOVIE';

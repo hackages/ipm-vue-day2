@@ -1,11 +1,11 @@
-import {ApiMocksService} from '@/core/api-mocks.service.js';
-import {ApiService} from '@/core/api.service.js';
+import {ApiMocksService} from '@/core/services/api-mocks.service.js';
+import {ApiService} from '@/core/services/api.service.js';
 
 export default {
   configuration: null,
   apiService: null,
   loadConfig() {
-    this.configuration = require(`../assets/settings/${
+    this.configuration = require(`../../assets/settings/${
       process.env.NODE_ENV
     }.json`);
     this.initApiService();

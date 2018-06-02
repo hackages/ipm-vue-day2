@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import HfHeader from './home/components/header.component.vue';
+import HfHeader from './core/header.component.vue';
 
 export default {
   name: 'App',

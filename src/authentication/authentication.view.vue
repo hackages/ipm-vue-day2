@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import auth from '../core/authentication.service';
+import auth from '../core/services/authentication.service';
 
 export default {
   name: 'HfAuthentication',
