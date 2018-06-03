@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <hf-header></hf-header>
-    <router-view/>
   </div>
 </template>
 

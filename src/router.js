@@ -1,47 +1,25 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import {Router} from 'vue-router';
 
-import HfHome from './home/home.view';
-import HfAuthentication from './authentication/authentication.view';
-import HfMovieDetail from './movie-details/movie-details.view';
-import authenticationService from './core/services/authentication.service.js';
+// TODO: Implement the guard
+// If user is isAuthenticated ( see ./core/services/authentication.service.js)
+// Then continue navigation
+// Else redirect to /auth
+const authGuard = () => {};
 
-const authGuard = (to, from, next) => {
-  return authenticationService.user.authenticated ? next() : next('/auth');
-};
-
-const cannotGoOnAuthPageIfAuthenticatedGuard = (to, from, next) => {
-  return authenticationService.user.authenticated ? next('/home') : next();
-};
+// TODO: Implement the guard
+// If user is isAuthenticated ( see ./core/services/authentication.service.js)
+// Then redirect to /home
+// Else continue navigation
+const cannotGoOnAuthPageIfAuthenticatedGuard = () => {};
 
 const routes = [
-  {
-    path: '/auth',
-    name: 'authentication',
-    component: HfAuthentication,
-    beforeEnter: cannotGoOnAuthPageIfAuthenticatedGuard,
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: HfHome,
-    beforeEnter: authGuard,
-  },
-  {
-    path: '/details/:id',
-    name: 'details',
-    component: HfMovieDetail,
-    beforeEnter: authGuard,
-  },
-  {
-    path: '**',
-    redirect: {name: 'home'},
-  },
+  //TODO
+  // Setup /auth route with HfAuthentication component with 'cannotGoOnAuthPageIfAuthenticatedGuard' for 'beforeEnter'
+  // Setup /home route with HfHome component with 'authGuard' for 'beforeEnter'
+  // Setup /details/:id route with HfMovieDetail component with 'authGuard' for 'beforeEnter'
+  // Setup fallback route that redirects to /home
 ];
 
-Vue.use(Router);
-
 export default new Router({
-  mode: 'history',
   routes,
 });
