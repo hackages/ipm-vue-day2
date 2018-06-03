@@ -67,82 +67,84 @@
 </template>
 
 <script>
-  import {orderBy} from 'lodash';
-  import HfSidebar from './components/sidebar.component';
+import {orderBy} from 'lodash';
+import HfSidebar from './components/sidebar.component';
 
-  export default {
-    name: 'HfHome',
-    components: {
-      HfSidebar,
+export default {
+  name: 'HfHome',
+  components: {
+    HfSidebar,
+  },
+  data() {
+    return {
+      toggleSideBar: true,
+      searchValue: '',
+      baseUrlCDN: 'https://image.tmdb.org/t/p/w500',
+      isHovered: false,
+      categories: [],
+      genres: [],
+      movies: [],
+    };
+  },
+  created() {
+    // TODO: LoadMovies, LoadCategories, LoadGenres
+  },
+  computed: {
+    filteredMovies() {
+      const filteredCategory = this.categories.filter(f => f.selected)[0];
+      const selectedCategory = filteredCategory
+        ? filteredCategory.category
+        : null;
+      return this.movies
+        .filter(this.filterByCategory(selectedCategory))
+        .filter(this.filterByTitle(this.searchValue));
     },
-    data() {
-      return {
-        toggleSideBar: true,
-        searchValue: '',
-        baseUrlCDN: 'https://image.tmdb.org/t/p/w500',
-        isHovered: false,
-        categories:[],
-        genres:[],
-        movies:[],
-      };
+    moviesOrderByTitle() {
+      return orderBy(this.filteredMovies, ['title']);
     },
-    created() {
-      // TODO: LoadMovies, LoadCategories, LoadGenres
-    },
-    computed: {
-      filteredMovies() {
-        const filteredCategory = this.categories.filter(f => f.selected)[0];
-        const selectedCategory = filteredCategory
-          ? filteredCategory.category
-          : null;
-        return this.movies
-          .filter(this.filterByCategory(selectedCategory))
-          .filter(this.filterByTitle(this.searchValue));
-      },
-      moviesOrderByTitle() {
-        return orderBy(this.filteredMovies, ['title']);
-      },
-      moviesWithPosterFullPath() {
-        return this.moviesOrderByTitle.map(({title, id, posterPath, overview}) => ({
+    moviesWithPosterFullPath() {
+      return this.moviesOrderByTitle.map(
+        ({title, id, posterPath, overview}) => ({
           id,
           title,
           posterFullPath: `${this.baseUrlCDN}${posterPath}`,
           overview,
-        }));
-      },
+        })
+      );
     },
-    methods: {
-      selectTab(category) {
-        // TODO: Update selected category
-      },
-      filterByCategory(selectedCategory) {
-        return movie =>
-          selectedCategory === 'All' ||
-          this.movieContainsGenre(movie, this.getGenreId(selectedCategory));
-      },
-      filterByTitle(title) {
-        return movie =>
-          !title || movie.title.toLowerCase().includes(title.toLowerCase());
-      },
-      movieContainsGenre(movie, genreId) {
-        return movie.genreIds.reduce(
-          (contains, next) => contains || next === genreId,
-          false,
-        );
-      },
-      getGenreId(name) {
-        const filteredGenre = this.genres.filter(genre => genre.name === name)[0];
-        return filteredGenre ? filteredGenre.id : null;
-      },
-      onClickSideBar(toggle) {
-        this.toggleSideBar = toggle;
-      },
-      onSearchSideBar(searchValue) {
-        this.searchValue = searchValue;
-      },
-      toggleHoverForTheMovie() {
-        this.isHovered = !this.isHovered;
-      },
+  },
+  methods: {
+    selectTab(category) {
+      // TODO: Update selected category
     },
-  };
+    filterByCategory(selectedCategory) {
+      return movie =>
+        selectedCategory === 'All' ||
+        this.movieContainsGenre(movie, this.getGenreId(selectedCategory));
+    },
+    filterByTitle(title) {
+      return movie =>
+        !title || movie.title.toLowerCase().includes(title.toLowerCase());
+    },
+    movieContainsGenre(movie, genreId) {
+      return movie.genreIds.reduce(
+        (contains, next) => contains || next === genreId,
+        false
+      );
+    },
+    getGenreId(name) {
+      const filteredGenre = this.genres.filter(genre => genre.name === name)[0];
+      return filteredGenre ? filteredGenre.id : null;
+    },
+    onClickSideBar(toggle) {
+      this.toggleSideBar = toggle;
+    },
+    onSearchSideBar(searchValue) {
+      this.searchValue = searchValue;
+    },
+    toggleHoverForTheMovie() {
+      this.isHovered = !this.isHovered;
+    },
+  },
+};
 </script>

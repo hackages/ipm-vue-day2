@@ -60,15 +60,12 @@ export default {
     // TODO: LoadMovie by Id and LoadComments for this movie
   },
   computed: {
-    movie() {
-    },
+    movie() {},
     cover() {
       return `${this.imageUrl}${(this.movie || {}).backdropPath}`;
     },
-    comments() {
-    },
-    error() {
-    },
+    comments() {},
+    error() {},
   },
   watch: {
     error() {
@@ -76,14 +73,11 @@ export default {
     },
   },
   methods: {
-
     back() {
       this.$router.push({path: '/home'});
     },
-    onDeleteComment({movieId, id}) {
-    },
-    onSubmitComment(comment) {
-    },
+    onDeleteComment({movieId, id}) {},
+    onSubmitComment(comment) {},
   },
 };
 </script>
