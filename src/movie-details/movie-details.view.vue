@@ -57,25 +57,17 @@ export default {
     };
   },
   created() {
-    if (!this.movie) {
-      this.LoadMovie(+this.$route.params.id);
-    }
-    if (this.comments.length === 0) {
-      this.LoadCommentsByMovie(+this.$route.params.id);
-    }
+    // TODO: LoadMovie by Id and LoadComments for this movie
   },
   computed: {
     movie() {
-      return this.$store.getters.getMovieById(+this.$route.params.id);
     },
     cover() {
       return `${this.imageUrl}${(this.movie || {}).backdropPath}`;
     },
     comments() {
-      return this.$store.getters.getCommentsByMovie(+this.$route.params.id);
     },
     error() {
-      return this.$store.getters.getError;
     },
   },
   watch: {
@@ -84,20 +76,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      'LoadMovie',
-      'LoadCommentsByMovie',
-      'AddCommentByMovie',
-      'DelCommentByMovie',
-    ]),
+
     back() {
       this.$router.push({path: '/home'});
     },
     onDeleteComment({movieId, id}) {
-      this.DelCommentByMovie({movieId, id});
     },
     onSubmitComment(comment) {
-      this.AddCommentByMovie(comment);
     },
   },
 };

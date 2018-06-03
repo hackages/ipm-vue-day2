@@ -1,11 +1,64 @@
 <template>
   <main class="main-content">
-    <hf-menubar :counter="moviesOrderByTitle.length"
-                :selectTab="selectTab"
-                :categories="categories"></hf-menubar>
-    <hf-movie-list :toggleSideBar="toggleSideBar"
-                   :movies="moviesOrderByTitle">
-    </hf-movie-list>
+    <!--<hf-menubar>-->
+    <div class="tab-filter-wrapper">
+      <div class="tab-filter">
+        <div class="filters">
+          <ul class="filters-list">
+            <li v-for="category in categories"
+                :key="category.category"
+                @click="selectTab(category.category)">
+              <a :class="{'selected': category.selected}">{{category.category}}</a>
+            </li>
+          </ul>
+          <ul class="misc">
+            <li class="counter">
+              <a>{{moviesOrderByTitle.length}}</a>
+            </li>
+            <li :to="'/stats'">
+              <a>Stats</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--</hf-menubar>-->
+
+    <!--<hf-movie-list >-->
+    <section :class="{'filter-is-visible':!toggleSideBar}"
+             class="gallery">
+      <!--<hf-movie class="movie">-->
+      <routerLink
+        class="movie"
+        :key="movie.id"
+        v-for="movie in moviesWithPosterFullPath"
+        to="{name:'details' , params: {id: movie.id}}"
+        @mouseenter="toggleHoverForTheMovie()"
+        @mouseleave="toggleHoverForTheMovie()">
+        <img :alt="movie.title + 'cover' "
+             :src="movie.posterFullPath"/>
+        <!--<hf-movie-hover-info>-->
+        <div :class="{'show-movie-body': isHovered}"
+             class="movie-body">
+          <h1>{{movie.title}}</h1>
+          <p>{{movie.overview}}</p>
+
+          <button class="btn btn-danger">
+            Remove from cart
+          </button>
+          <button class="btn add">
+            Add to cart
+          </button>
+          <router-link class="btn btn-link"
+                       :to="{name:'details' , params: {id:movie.id}}"
+                       tag="button">See the details
+          </router-link>
+        </div>
+        <!--</hf-movie-hover-info>-->
+      </routerLink>
+      <!--</hf-movie>-->
+    </section>
+    <!--</hf-movie-list>-->
     <hf-sidebar :onClick="onClickSideBar"
                 v-model="searchValue"
                 :toggle="toggleSideBar">
@@ -14,83 +67,82 @@
 </template>
 
 <script>
-import HfMenubar from './components/menubar.component';
-import HfMovieList from './movie-list/movie-list.component';
-import HfSidebar from './components/sidebar.component';
+  import {orderBy} from 'lodash';
+  import HfSidebar from './components/sidebar.component';
 
-import {orderBy} from 'lodash';
-import {mapGetters, mapActions, mapMutations} from 'vuex';
-import {UDAPTE_SELECTED_CATEGORY} from '../core/state/modules/categories';
-
-export default {
-  name: 'HfHome',
-  components: {
-    HfMenubar,
-    HfMovieList,
-    HfSidebar,
-  },
-  data() {
-    return {
-      toggleSideBar: true,
-      searchValue: '',
-    };
-  },
-  created() {
-    // TODO: LoadMovies, LoadCategories, LoadGenres from vuex
-    this.LoadMovies(50);
-    this.LoadCategories();
-    this.LoadGenres();
-  },
-  computed: {
-    ...mapGetters({
-      categories: 'getCategories',
-      movies: 'getMovies',
-      genres: 'getGenres',
-    }),
-    filteredMovies() {
-      const filteredCategory = this.categories.filter(f => f.selected)[0];
-      const selectedCategory = filteredCategory
-        ? filteredCategory.category
-        : null;
-      return this.movies
-        .filter(this.filterByCategory(selectedCategory))
-        .filter(this.filterByTitle(this.searchValue));
+  export default {
+    name: 'HfHome',
+    components: {
+      HfSidebar,
     },
-    moviesOrderByTitle() {
-      return orderBy(this.filteredMovies, ['title']);
+    data() {
+      return {
+        toggleSideBar: true,
+        searchValue: '',
+        baseUrlCDN: 'https://image.tmdb.org/t/p/w500',
+        isHovered: false,
+        categories:[],
+        genres:[],
+        movies:[],
+      };
     },
-  },
-  methods: {
-    ...mapActions(['LoadMovies', 'LoadCategories', 'LoadGenres']),
-    ...mapMutations({SelectedCategory: UDAPTE_SELECTED_CATEGORY}),
-    selectTab(category) {
-      this.SelectedCategory(category);
+    created() {
+      // TODO: LoadMovies, LoadCategories, LoadGenres
     },
-    filterByCategory(selectedCategory) {
-      return movie =>
-        selectedCategory === 'All' ||
-        this.movieContainsGenre(movie, this.getGenreId(selectedCategory));
+    computed: {
+      filteredMovies() {
+        const filteredCategory = this.categories.filter(f => f.selected)[0];
+        const selectedCategory = filteredCategory
+          ? filteredCategory.category
+          : null;
+        return this.movies
+          .filter(this.filterByCategory(selectedCategory))
+          .filter(this.filterByTitle(this.searchValue));
+      },
+      moviesOrderByTitle() {
+        return orderBy(this.filteredMovies, ['title']);
+      },
+      moviesWithPosterFullPath() {
+        return this.moviesOrderByTitle.map(({title, id, posterPath, overview}) => ({
+          id,
+          title,
+          posterFullPath: `${this.baseUrlCDN}${posterPath}`,
+          overview,
+        }));
+      },
     },
-    filterByTitle(title) {
-      return movie =>
-        !title || movie.title.toLowerCase().includes(title.toLowerCase());
+    methods: {
+      selectTab(category) {
+        // TODO: Update selected category
+      },
+      filterByCategory(selectedCategory) {
+        return movie =>
+          selectedCategory === 'All' ||
+          this.movieContainsGenre(movie, this.getGenreId(selectedCategory));
+      },
+      filterByTitle(title) {
+        return movie =>
+          !title || movie.title.toLowerCase().includes(title.toLowerCase());
+      },
+      movieContainsGenre(movie, genreId) {
+        return movie.genreIds.reduce(
+          (contains, next) => contains || next === genreId,
+          false,
+        );
+      },
+      getGenreId(name) {
+        const filteredGenre = this.genres.filter(genre => genre.name === name)[0];
+        return filteredGenre ? filteredGenre.id : null;
+      },
+      onClickSideBar(toggle) {
+        this.toggleSideBar = toggle;
+      },
+      onSearchSideBar(searchValue) {
+        this.searchValue = searchValue;
+      },
+      toggleHoverForTheMovie() {
+        this.isHovered = !this.isHovered;
+      },
     },
-    movieContainsGenre(movie, genreId) {
-      return movie.genreIds.reduce(
-        (contains, next) => contains || next === genreId,
-        false
-      );
-    },
-    getGenreId(name) {
-      const filteredGenre = this.genres.filter(genre => genre.name === name)[0];
-      return filteredGenre ? filteredGenre.id : null;
-    },
-    onClickSideBar(toggle) {
-      this.toggleSideBar = toggle;
-    },
-    onSearchSideBar(searchValue) {
-      this.searchValue = searchValue;
-    },
-  },
-};
+  };
 </script>
