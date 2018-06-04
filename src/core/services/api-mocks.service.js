@@ -1,6 +1,7 @@
 import {camelCaseMapper, delay} from '@/shared/util';
 
 const time = 1000;
+let commentId = 10;
 
 export class ApiMocksService {
   getMovies(count) {
@@ -35,8 +36,18 @@ export class ApiMocksService {
       .then(delay(time));
   }
 
+  getCommentsById(movieId) {
+    return Promise.resolve(require('../../assets/mocks/comments.json'))
+      .then(camelCaseMapper)
+      .then(comments => comments.filter(comment => comment.movieId === movieId))
+      .then(delay(time));
+  }
+
   addCommentByMovieId(comment) {
-    return new Promise(resolve => resolve(comment)).then(delay(time));
+    commentId += 1;
+    return new Promise(resolve => resolve({...comment, id: commentId})).then(
+      delay(time)
+    );
   }
 
   deleteCommentById(movieId, id) {

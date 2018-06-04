@@ -43,7 +43,7 @@
 import HfCommentForm from './components/comment-form.component';
 import HfCommentList from './components/comment-list.component';
 
-import {mapActions} from 'vuex';
+import settingsProvider from '@/core/services/settings.provider.js';
 
 export default {
   name: 'HfMovieDetails',
@@ -54,18 +54,22 @@ export default {
   data() {
     return {
       imageUrl: 'https://image.tmdb.org/t/p//w1280',
+      movie: null,
+      comments: [],
     };
   },
-  created() {
-    // TODO: LoadMovie by Id and LoadComments for this movie
+  async created() {
+    this.movie = await settingsProvider.apiService
+      .getMovieById(+this.$route.params.id)
+      .catch(() => this.back());
+    this.comments = await settingsProvider.apiService
+      .getCommentsById(this.movie.id)
+      .catch(() => this.back());
   },
   computed: {
-    movie() {},
     cover() {
-      return `${this.imageUrl}${(this.movie || {}).backdropPath}`;
+      return this.movie && `${this.imageUrl}${this.movie.backdropPath}`;
     },
-    comments() {},
-    error() {},
   },
   watch: {
     error() {
@@ -76,8 +80,19 @@ export default {
     back() {
       this.$router.push({path: '/home'});
     },
-    onDeleteComment({movieId, id}) {},
-    onSubmitComment(comment) {},
+    onDeleteComment({movieId, id}) {
+      settingsProvider.apiService
+        .deleteCommentById(movieId, id)
+        .then(
+          () =>
+            (this.comments = this.comments.filter(comment => comment.id !== id))
+        );
+    },
+    onSubmitComment(comment) {
+      settingsProvider.apiService
+        .addCommentByMovieId(comment)
+        .then((this.comments = [...this.comments, comment]));
+    },
   },
 };
 </script>

@@ -28,15 +28,14 @@
     <section :class="{'filter-is-visible':!toggleSideBar}"
              class="gallery">
       <!--<hf-movie class="movie">-->
-      <routerLink
-        class="movie"
-        :key="movie.id"
-        v-for="movie in moviesWithPosterFullPath"
-        to="{name:'details' , params: {id: movie.id}}"
-        @mouseenter="toggleHoverForTheMovie()"
-        @mouseleave="toggleHoverForTheMovie()">
+      <router-link class="movie"
+                   :key="movie.id"
+                   v-for="movie in moviesWithPosterFullPath"
+                   :to="{name:'details' , params: {id: movie.id}}"
+                   @mouseenter="toggleHoverForTheMovie()"
+                   @mouseleave="toggleHoverForTheMovie()">
         <img :alt="movie.title + 'cover' "
-             :src="movie.posterFullPath"/>
+             :src="movie.posterFullPath" />
         <!--<hf-movie-hover-info>-->
         <div :class="{'show-movie-body': isHovered}"
              class="movie-body">
@@ -55,7 +54,7 @@
           </router-link>
         </div>
         <!--</hf-movie-hover-info>-->
-      </routerLink>
+      </router-link>
       <!--</hf-movie>-->
     </section>
     <!--</hf-movie-list>-->
@@ -69,6 +68,7 @@
 <script>
 import {orderBy} from 'lodash';
 import HfSidebar from './components/sidebar.component';
+import settingsProvider from '@/core/services/settings.provider.js';
 
 export default {
   name: 'HfHome',
@@ -86,8 +86,10 @@ export default {
       movies: [],
     };
   },
-  created() {
-    // TODO: LoadMovies, LoadCategories, LoadGenres
+  async created() {
+    this.movies = await settingsProvider.apiService.getMovies(50);
+    this.categories = await settingsProvider.apiService.getCategories();
+    this.genres = await settingsProvider.apiService.getGenres();
   },
   computed: {
     filteredMovies() {
@@ -115,7 +117,10 @@ export default {
   },
   methods: {
     selectTab(category) {
-      // TODO: Update selected category
+      this.categories = this.categories.map(filter => ({
+        ...filter,
+        selected: filter.category === category,
+      }));
     },
     filterByCategory(selectedCategory) {
       return movie =>
