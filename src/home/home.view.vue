@@ -86,9 +86,9 @@ export default {
     };
   },
   async created() {
-    this.movies = await this.$api.getMovies(50);
-    this.categories = await this.$api.getCategories();
-    this.genres = await this.$api.getGenres();
+    this.movies = await this.$apiService.getMovies(50);
+    this.categories = await this.$apiService.getCategories();
+    this.genres = await this.$apiService.getGenres();
   },
   computed: {
     filteredMovies() {

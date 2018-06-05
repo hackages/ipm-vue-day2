@@ -57,10 +57,10 @@ export default {
     };
   },
   async created() {
-    this.movie = await this.$api
+    this.movie = await this.$apiService
       .getMovieById(+this.$route.params.id)
       .catch(() => this.back());
-    this.comments = await this.$api
+    this.comments = await this.$apiService
       .getCommentsById(this.movie.id)
       .catch(() => this.back());
   },
@@ -79,7 +79,7 @@ export default {
       this.$router.push({path: '/home'});
     },
     onDeleteComment({movieId, id}) {
-      this.$api
+      this.$apiService
         .deleteCommentById(movieId, id)
         .then(
           () =>
@@ -87,7 +87,7 @@ export default {
         );
     },
     onSubmitComment(comment) {
-      this.$api
+      this.$apiService
         .addCommentByMovieId(comment)
         .then(newComment => (this.comments = [...this.comments, newComment]));
     },

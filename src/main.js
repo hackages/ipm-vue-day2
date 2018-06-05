@@ -12,7 +12,7 @@ Vue.config.productionTip = process.env.NODE_ENV === 'production';
 authenticationService.checkAuth();
 settingsProvider.loadConfig();
 
-Vue.prototype.$api = settingsProvider.initApiService();
+Vue.prototype.$apiService = settingsProvider.initApiService();
 
 export default new Vue({
   render: h => h(App),
