@@ -68,7 +68,6 @@
 <script>
 import {orderBy} from 'lodash';
 import HfSidebar from './components/sidebar.component';
-import settingsProvider from '@/core/services/settings.provider.js';
 
 export default {
   name: 'HfHome',
@@ -87,9 +86,9 @@ export default {
     };
   },
   async created() {
-    this.movies = await settingsProvider.apiService.getMovies(50);
-    this.categories = await settingsProvider.apiService.getCategories();
-    this.genres = await settingsProvider.apiService.getGenres();
+    this.movies = await this.$api.getMovies(50);
+    this.categories = await this.$api.getCategories();
+    this.genres = await this.$api.getGenres();
   },
   computed: {
     filteredMovies() {

@@ -43,8 +43,6 @@
 import HfCommentForm from './components/comment-form.component';
 import HfCommentList from './components/comment-list.component';
 
-import settingsProvider from '@/core/services/settings.provider.js';
-
 export default {
   name: 'HfMovieDetails',
   components: {
@@ -59,10 +57,10 @@ export default {
     };
   },
   async created() {
-    this.movie = await settingsProvider.apiService
+    this.movie = await this.$api
       .getMovieById(+this.$route.params.id)
       .catch(() => this.back());
-    this.comments = await settingsProvider.apiService
+    this.comments = await this.$api
       .getCommentsById(this.movie.id)
       .catch(() => this.back());
   },
@@ -81,7 +79,7 @@ export default {
       this.$router.push({path: '/home'});
     },
     onDeleteComment({movieId, id}) {
-      settingsProvider.apiService
+      this.$api
         .deleteCommentById(movieId, id)
         .then(
           () =>
@@ -89,9 +87,9 @@ export default {
         );
     },
     onSubmitComment(comment) {
-      settingsProvider.apiService
+      this.$api
         .addCommentByMovieId(comment)
-        .then((this.comments = [...this.comments, comment]));
+        .then(newComment => (this.comments = [...this.comments, newComment]));
     },
   },
 };
