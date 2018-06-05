@@ -74,3 +74,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.is-danger {
+  border-color: red !important;
+}
+</style>
