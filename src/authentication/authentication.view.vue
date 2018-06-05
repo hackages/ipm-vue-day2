@@ -61,22 +61,12 @@ export default {
     };
   },
   methods: {
-    onSubmit(scope) {
+    async onSubmit(scope) {
       this.errorLogin = false;
-      this.$validator.validateAll(scope).then(result => {
-        if (result) {
-          auth
-            .login(this.form)
-            .then(
-              bool =>
-                bool
-                  ? this.$router.push({path: '/home'})
-                  : (this.errorLogin = true)
-            );
-        } else {
-          this.errorLogin = true;
-        }
-      });
+      const res = await this.$validator
+        .validateAll(scope)
+        .then(result => result && auth.login(this.form));
+      res ? this.$router.push({path: '/home'}) : (this.errorLogin = true);
     },
   },
 };
