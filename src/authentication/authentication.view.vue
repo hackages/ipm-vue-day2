@@ -64,8 +64,15 @@ export default {
     onSubmit(scope) {
       this.errorLogin = false;
       this.$validator.validateAll(scope).then(result => {
-        if (result && auth.login(this.form)) {
-          this.$router.push({path: '/home'});
+        if (result) {
+          auth
+            .login(this.form)
+            .then(
+              bool =>
+                bool
+                  ? this.$router.push({path: '/home'})
+                  : (this.errorLogin = true)
+            );
         } else {
           this.errorLogin = true;
         }

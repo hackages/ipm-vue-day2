@@ -1,11 +1,14 @@
 import {camelCaseMapper} from '@/shared/util';
 import axios from 'axios';
+import authService from './authentication.service';
+import settingsProvider from './settings.provider';
 
-const token = 'fds3424fdsqwjfkldmsq4324fds';
 export class ApiService {
+  apiUrl = settingsProvider.getBackendUrl();
+
   getMovies(count) {
     return axios
-      .get('https://hackflix-backend-pmuxoperml.now.sh/movies', {
+      .get(`${this.apiUrl}/movies`, {
         params: {count},
       })
       .then(d => d.data)
@@ -14,7 +17,7 @@ export class ApiService {
 
   getMovieById(id) {
     return axios
-      .get(`https://hackflix-backend-pmuxoperml.now.sh/movies/${id}`)
+      .get(`${this.apiUrl}/movies/${id}`)
       .then(d => d.data)
       .then(camelCaseMapper);
   }
@@ -27,21 +30,21 @@ export class ApiService {
 
   getGenres() {
     return axios
-      .get('https://hackflix-backend-pmuxoperml.now.sh/genres')
+      .get(`${this.apiUrl}/genres`)
       .then(d => d.data)
       .then(camelCaseMapper);
   }
 
   getComments() {
     return axios
-      .get('https://hackflix-backend-pmuxoperml.now.sh/comments')
+      .get(`${this.apiUrl}/comments`)
       .then(d => d.data)
       .then(camelCaseMapper);
   }
 
   getCommentsById(movieId) {
     return axios
-      .get('https://hackflix-backend-pmuxoperml.now.sh/comments', {
+      .get(`${this.apiUrl}/comments`, {
         params: {movie_id: movieId},
       })
       .then(d => d.data)
@@ -51,14 +54,14 @@ export class ApiService {
   addCommentByMovieId(comment) {
     return axios
       .post(
-        'https://hackflix-backend-pmuxoperml.now.sh/comments',
+        `${this.apiUrl}/comments`,
         {
           movie_id: comment.movieId,
           author: comment.author,
           content: comment.content,
         },
         {
-          headers: {Authorization: token},
+          headers: {Authorization: authService.getToken()},
         }
       )
       .then(d => d.data)
@@ -67,8 +70,8 @@ export class ApiService {
 
   deleteCommentById(movieId, id) {
     return axios
-      .delete(`https://hackflix-backend-pmuxoperml.now.sh/comments/${id}`, {
-        headers: {Authorization: token},
+      .delete(`${this.apiUrl}/comments/${id}`, {
+        headers: {Authorization: authService.getToken()},
       })
       .then(d => d.data)
       .then(camelCaseMapper);

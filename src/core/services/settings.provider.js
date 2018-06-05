@@ -9,7 +9,7 @@ export default {
     }.json`);
   },
   getBackendUrl() {
-    this.configuration.backendUrl;
+    return this.configuration.backendUrl;
   },
   getAccess() {
     return this.configuration.access;

@@ -1,5 +1,5 @@
 {
-  "backendUrl": "",
+  "backendUrl": "https://hackflix-backend-pmuxoperml.now.sh",
   "access": {
     "api": true
   }
